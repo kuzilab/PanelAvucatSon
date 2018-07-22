@@ -8,6 +8,8 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
 
     $rootScope.user = AuthUser.getCookieUser();
 
+    console.log($rootScope.user);
+
 
     vm.ChangeClass = function (menu) {
         menu.class = "nav-link text-nowrap d-flex active";
