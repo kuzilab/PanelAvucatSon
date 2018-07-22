@@ -1,7 +1,7 @@
 var IndexCtrl = angular.module('IndexCtrl', []);
 
 
-IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location, MockData, AuthUser, Auth, $window) {
+IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location, MockData, AuthUser, Auth, $window, $cookieStore) {
 
     var vm = this;
     console.log('Index Controller')
