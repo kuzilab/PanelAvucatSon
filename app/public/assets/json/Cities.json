@@ -1,0 +1,37 @@
+[
+
+    {
+        "id": 34,
+        "name": "İstanbul",
+        "searchName": "istanbul"
+    },
+
+    {
+        "id": 6,
+        "name": "Ankara",
+        "searchName": "ankara"
+    },
+
+    {
+        "id": 35,
+        "name": "İzmir",
+        "searchName": "izmir"
+    },
+
+    {
+        "id": 1,
+        "name": "Adana",
+        "searchName": "adana"
+    },
+
+    {
+        "id": 2,
+        "name": "Adıyaman",
+        "searchName": "adiyaman"
+    },
+    {
+        "id": 3,
+        "name": "AfyonKarahisar",
+        "searchName": "afyonkarahisar"
+    }
+]

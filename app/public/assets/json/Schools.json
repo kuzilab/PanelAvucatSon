@@ -1,0 +1,41 @@
+[{
+        "id": 1,
+        "name": "Adana Bilim ve Teknoloji Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 2,
+        "name": "Atılım Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 3,
+        "name": "Afyon Kocatepe Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 4,
+        "name": "Bahçeşehir Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 5,
+        "name": "Akdeniz Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 6,
+        "name": "Başkent Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 7,
+        "name": "Anadolu Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 8,
+        "name": "Beykent Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 9,
+        "name": "Ankara Üniversitesi Hukuk Fakültesi"
+    },
+    {
+        "id": 10,
+        "name": "Bilkent Üniversitesi Hukuk Fakültesi"
+    }
+]

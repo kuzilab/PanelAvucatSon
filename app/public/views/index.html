@@ -1,0 +1,141 @@
+<html ng-app="app" ng-cloak>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+    />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="MobileOptimized" content="320" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="index, follow, noodp, noydir" />
+    <meta name="designer" content="www.onurboz.com" />
+    <title>Avucat Yönetim Paneli</title>
+
+
+
+    <!-- Angular Min JS -->
+    <script src="../assets/js/1.6.5-angular.min.js "></script>
+
+
+    <!-- Angular Min Route JS -->
+    <script src="../assets/js/1.6.5-angular-route.min.js "></script>
+
+    <!-- Angular Message JS -->
+    <script src="../assets/js/1.6.5-angular-messages.min.js"></script>
+
+    <script type="text/javascript" src="../assets/js/1.6.5-angular-cookies.js"></script>
+
+    <!-- Google Maps Libraries -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu60gKZgBm8f0Rwhcv7lia2kHRR9_vR3o" type="text/javascript"></script>
+
+    <!-- Services -->
+    <script type="text/javascript" src="../services/authDataService.js"></script>
+    <script type="text/javascript" src="../services/crudDataService.js"></script>
+    <script type="text/javascript" src="../services/mockDataService.js"></script>
+    <script type="text/javascript" src="../services//uploadDataService.js"></script>
+    <script type="text/javascript" src="../services/googleMapService.js"></script>
+    <script type="text/javascript" src="../services/passDataService.js"></script>
+
+    <!--Controllers -->
+    <script type="text/javascript" src="../controllers/IndexCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/LoginCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/SignUpCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/ProfileCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/ExtendProfileCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/CertificatesCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/EssaysCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/CommentsCtrl.js"></script>
+    <script type="text/javascript" src="../controllers/SocialCtrl.js"></script>
+
+
+    <!-- Globe Helper -->
+    <script type="text/javascript" src="../assets/js/GlobeHelper.js"></script>
+    <script type="text/javascript" src="../app.js"></script>
+
+    <link rel="shortcut icon" type="image/png" href="../assets/img/avucat-icon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600&amp;subset=latin-ext" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css" charset="UTF-8" />
+    <link href="../assets/css/theme.css" rel="stylesheet" type="text/css" charset="UTF-8" />
+
+    <!-- Theme Libraries  -->
+    <script type="text/javascript" src="../assets/js/code.jquery-jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../assets/js/poper.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/table.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/selectize.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/summernote.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/js.cookie.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/theme.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../assets/js/toastr.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <header data-ng-controller="IndexController as index" ng-show="index.loggedIn">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top poppins">
+            <div class="container-fluid">
+                <button class="hamburger-menu navbar-toggle minus" type="button" data-toggle="offcanvas">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand mb-0 h1 fw-600" href="index.html"> {{index.header.brand}}
+                    <span class="d-none d-sm-inline">|
+                        <span class="fw-200">{{index.header.title}}</span>
+                    </span>
+                </a>
+                <div>
+                    <div class="d-block">
+                        <a class="btn text-white" href="/">
+                            <img class="user-picture border border-white shadow rounded-circle" src="{{index.header.profile}}" width="25" height="25"
+                            />
+                            <span class="ml-1 d-md-inline-block d-none">{{index.header.username}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="row-offcanvas row-offcanvas-left">
+        <aside id="sidebar" class="sidebar-offcanvas" data-ng-controller="IndexController as index" ng-show="index.loggedIn">
+            <div class="user-details" data-toggle="offcanvas">
+                <img class="user-picture border border-white shadow rounded-circle" src="{{index.header.profile}}" width="52" height="52"
+                />
+                <div class="text-center fw-600 user-name">
+                    <span>{{index.header.username}}</span>
+                </div>
+            </div>
+
+            <ul class="nav flex-column">
+                <li class="nav-item" ng-repeat="menu in menus track by $index">
+                    <a class="{{menu.class}}" href="{{menu.href}}" ng-click="index.ChangeClass(menu)">
+                        <span class="{{menu.icon}}"></span>
+                        <span>{{menu.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- ********* Master Template **********   -->
+        <div ng-view></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Yorumlar</h3>
+                </div>
+
+                <div class="pt-1 clearfix col-12">
+
+                    <div class="card my-4" ng-repeat="item in comments track by $index">
+                        <div class="card-header d-flex align-items-center font-normal">
+                            <img class="user-picture border border-white shadow rounded-circle mx-3" src="../assets/img/user.png" width="32" height="32"
+                            />
+                            <span>{{item.WhoComment}}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="blockquote mb-0 p-3">
+                                <p>{{item.CommentContent}}</p>
+                                <footer class="blockquote-footer">
+                                    <small class="text-muted font-normal">
+                                        Eklendiği Tarih:
+                                        <cite title="{{item.SavedDate}}">
+                                            <strong>{{item.SavedDate}}</strong>
+                                        </cite>
+                                    </small>
+                                </footer>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h6>Hızlı cevap</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" ng-style="setUserSpeed(item)"> {{item.UserSpeed}}%</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6>İlgi alaka</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" ng-style="setUserExperience(item)">{{item.UserExperince}}%</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6>Deneyim</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" ng-style="setUserNetwork(item)">{{item.UserNetwork}}%</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <form>
+                                <span class="switch font-normal">
+                                    <input type="checkbox" ng-model="item.CommentVisible" class="switch" id="{{item._id}}" ng-change="comment.ChangeVisible(item)"
+                                    />
+                                    <label class="mb-0 text-muted d-block" for="{{item._id}}">Yorumu yayınla</label>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+</div>
+
+<div id="toast" class="message show" ng-hide="visible">
+    <div class="toastInner" ng-style="setStyle()">
+        <div class="toastMessage">
+            {{message}}
+        </div>
+    </div>
+</div>

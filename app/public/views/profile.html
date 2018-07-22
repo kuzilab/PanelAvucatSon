@@ -1,0 +1,192 @@
+<style>
+    #gmaps {
+        width: 100%;
+        height: 80%;
+    }
+</style>
+
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Profil</h3>
+                </div>
+
+                <form class="col-12" name="Form" ng-submit="profile.updateProfile()">
+                    <div class="row">
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <div class="mb-5">
+                                    <h4 class="h4 font-normal">{{profile.profileData.NameSurname}}</h4>
+                                    <p>
+                                        <span class="badge badge-secondary px-2 py-1" ng-repeat="expertise in list track by $index" style="margin-right: 2px!important">
+                                            {{expertise.name}}</span>
+                                    </p>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-4 res-f-sidebar-col text-center align-self-center pl-lg-4">
+                                        <div class="user-clickable-area position-relative mx-auto" data-toggle="tooltip" data-placement="top" title="Profil fotoğrafı">
+                                            <div class="rounded-circle d-flex justify-content-center flex-column">
+                                                <span class="icons icon-picture"></span>
+                                                <div>Fotoğrafı değiştirmek için tıklayın</div>
+                                                <input type="file" id="fileInput" name="profilePic" oninput="angular.element(this).scope().profilePicSelected(this)" />
+                                            </div>
+                                            <img class="user-picture rounded-circle mx-auto d-block img-fluid" ng-src="{{profile.profileData.ProfilePicPath}}" />
+                                        </div>
+                                        <p class="form-text text-muted pt-1 mb-md-0 font-normal">
+                                            <small>
+                                                <span class="icons icon-info"></span> Profil fotoğrafınız herkese açıktır.</small>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-8 res-f-sidebar-col px-lg-4">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 res-f-sidebar-col py-3">
+                                                <label for="formAdSoyad">Ad Soyad</label>
+                                                <input class="form-control font-normal is-valid" name="NameSurname" id="formAdSoyad" type="text" placeholder="Ad Soyad" ng-model="profile.profileData.NameSurname"
+                                                    ng-required="true" />
+                                                <p ng-hide="Form.NameSurname.$valid" class="invalid-feedback">Ad Soyad Giriniz!</p>
+                                                <p ng-show="Form.NameSurname.$valid" class="valid-feedback">Ad Soyad Geçerli :)</p>
+                                            </div>
+
+
+
+                                            <div class="col-lg-6 res-f-sidebar-col py-3">
+                                                <label for="formTelefon">Telefon</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text fw-600 font-normal">+90</span>
+                                                    </div>
+                                                    <input class="form-control font-normal" name="Phone" id="formTelefon" type="phone" placeholder="5XX XXX XX XX" ng-model="profile.profileData.Phone"
+                                                        autocomplete="tel" ng-pattern="/^[0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$/"
+                                                        required />
+                                                </div>
+                                                <p ng-hide="Form.Phone.$valid" class="invalid-feedback">Format Doğru Değil!</p>
+                                                <p ng-if="Form.Phone.$valid" class="valid-feedback">Telefon Geçerli :)</p>
+                                            </div>
+
+                                            <div class="col-lg-12 res-f-sidebar-col py-3">
+                                                <label for="formUzmanlikAlanlari">Uzmanlık Alanları</label>
+                                                <select class="font-normal form-control" name="ExpertiseField" id="formUzmanlikAlanlari" ng-model="profile.profileData.ExpertiseFields"
+                                                    onchange="getExpertiseFields()" required multiple data-tagging data-create="false">
+                                                    <option value="1">Aile Hukuku</option>
+                                                    <option value="2">Anayasa Hukuku</option>
+                                                    <option value="3">AB Hukuku</option>
+                                                    <option value="4">Avukatlık Hukuku</option>
+                                                    <option value="5">Bankacılık Hukuku</option>
+                                                    <option value="6">Basın Hukuku</option>
+                                                    <option value="7">Bilişim Hukuku</option>
+                                                    <option value="8">Borçlar Hukuku</option>
+                                                    <option value="9">Boşanma Hukuku</option>
+                                                    <option value="10">Çevre Hukuku</option>
+                                                    <option value="11">Ceza Hukuku</option>
+                                                    <option value="12">Ceza Usül Hukuku</option>
+                                                    <option value="13">Deniz Hukuku</option>
+                                                    <option value="14">Devletler Hukuku</option>
+                                                    <option value="15">Eşya Hukuku</option>
+                                                </select>
+
+                                                <p ng-hide="Form.ExpertiseField.$valid" class="invalid-feedback">Uzmanlık Giriniz!</p>
+                                                <p ng-show="Form.ExpertiseField.$valid" class="valid-feedback">Uzmanlık Geçerli :)</p>
+                                            </div>
+
+
+
+
+                                            <div class="col-lg-12 res-f-sidebar-col py-3 ">
+                                                <label for="formEposta ">E-posta</label>
+                                                <input class="form-control font-normal " id="formEposta" name="Email" type="email" placeholder="E-posta adresiniz" required
+                                                    ng-model="profile.profileData.Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                                                    required/>
+                                                <p ng-hide="Form.Email.$valid" class="invalid-feedback">Format Doğru Değil!</p>
+                                                <p ng-show="Form.Email.$valid" class="valid-feedback">Email Geçerli :)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-4 mb-1 mt-lg-5 mb-lg-4" />
+
+                                <div class="row">
+                                    <div class="col-md-4 res-f-sidebar-col text-center align-self-center pl-lg-4">
+                                        <button class="user-clickable-area f-location position-relative mx-auto align-self-center 
+                                                    d-flex" type="button" data-toggle="modal" data-target="#locationModal"
+                                            data-placement="top" title="Konum bilgisi">
+                                            <div class="rounded-circle d-flex justify-content-center flex-column">
+                                                <span class="icons icon-location-pin"></span>
+                                                <div>{{profile.profileData.LocationAddress}}</div>
+                                            </div>
+                                            <img class="user-picture rounded-circle mx-auto d-block img-fluid" ng-src="../assets/img/mappin.jpg" />
+                                        </button>
+                                        <p class="form-text text-muted pt-1 mb-md-0 font-normal">
+                                            <small>
+                                                <span class="icons icon-info"></span> Resime tıklayarak konum bilgisi alabilirsiniz.</small>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-8 res-f-sidebar-col align-self-center px-lg-4">
+                                        <div class="row">
+                                            <div class="col-lg-6 res-f-sidebar-col py-3">
+                                                <label for="formSifre">Şifre</label>
+                                                <input class="form-control font-normal" name="Password" ng-model="profile.profileData.PasswordPlain" type="text" placeholder="Şifre"
+                                                    required />
+                                                <p ng-hide="Form.Password.$valid" class="invalid-feedback">Şifre Giriniz!</p>
+                                            </div>
+
+                                            <div class="col-lg-6 res-f-sidebar-col py-3">
+                                                <label for="formSifreTekrar">Şifre Tekrar</label>
+                                                <input class="form-control font-normal" name="RePassword" type="text" ng-model="profile.RePassword" placeholder="Şifre Tekrar"
+                                                    required ng-pattern="profile.profileData.PasswordPlain" />
+                                                <p ng-hide="Form.RePassword.$valid" class="invalid-feedback">Şifreler Eşleşmiyor!</p>
+                                                <p ng-show="Form.RePassword.$valid" class="valid-feedback">Şifre Geçerli :)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-dark btn-lg float-right d-block-sm-btn">Değişiklikleri Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="locationModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 120%;height: 90%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{profile.test}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="gmaps"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="profile.ok()">Tamam</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Result Message -->
+<div id="toast" class="message show" ng-hide="visible">
+    <div class="toastInner" ng-style="setStyle()">
+        <div class="toastMessage">
+            {{message}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,217 @@
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Detay Profil</h3>
+                </div>
+                <form class="col-12" ng-submit="extend.updateExtendProfile()" name="Form">
+                    <div class="row">
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <h3 class="h4 font-normal">Avukatlık bürosu</h3>
+                                <div class="form-row pt-1">
+
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Adı</label>
+                                        <input ng-model="extend.extendData.BureauName" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Büronuzun adını giriniz"
+                                        />
+                                    </div>
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroInternet">İnternet Sitesi</label>
+                                        <div class="input-group" data-switchWrapper>
+                                            <div class="input-group-prepend">
+                                                <span class="switch input-group-text">
+                                                    <input type="checkbox" class="switch" id="formBuroInternetSwitch" data-switchInput ng-model="extend.extendData.IsBureauWebName"
+                                                        ng-change="extend.GetIsBureauWebName()" />
+                                                    <label class="mb-0" for="formBuroInternetSwitch"></label>
+                                                </span>
+                                            </div>
+                                            <input name="BureauWebName" ng-model="extend.extendData.BureauWebName" class="form-control font-normal" id="formBuroInternet"
+                                                type="text" placeholder="Büro internet sitesi adresiniz" ng-disabled="!extend.extendData.IsBureauWebName"
+                                                required /> </div>
+                                        <div ng-show="extend.extendData.IsBureauWebName">
+                                            <p ng-hide="Form.BureauWebName.$valid" class="invalid-feedback">Site ismi Giriniz!</p>
+                                            <p ng-show="Form.BureauWebName.$valid" class="valid-feedback">Geçerli :)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 py-2">
+                                        <label for="formBuroAdresi">Adresi</label>
+                                        <textarea ng-model="extend.extendData.Address" class="form-control font-normal" id="formBuroAdresi" rows="3" placeholder="Büronuzun adresini giriniz"></textarea>
+                                    </div>
+                                </div>
+                                <h3 class="h4 font-normal pt-5">Kişisel bilgiler</h3>
+                                <div class="form-row pt-1">
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formTecrubeYili">Tecrübe yılı</label>
+                                        <input ng-model="extend.extendData.ExperienceYear" class="form-control font-normal" id="formTecrubeYili" type="number" min="0"
+                                            max="100" placeholder="Toplam tecrübe yılınız" />
+                                    </div>
+
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formSahsiInternet">İnternet Sitesi</label>
+                                        <div class="input-group" data-switchWrapper>
+                                            <div class="input-group-prepend">
+                                                <span class="switch input-group-text">
+                                                    <input type="checkbox" class="switch" id="formSahsiInternetSwitch" data-switchInput ng-model="extend.extendData.IsUserWebName"
+                                                        ng-change="extend.GetIsUserWebName()" />
+                                                    <label class="mb-0" for="formSahsiInternetSwitch"></label>
+                                                </span>
+                                            </div>
+                                            <input name="UserWebName" class="form-control font-normal" id="formSahsiInternet" type="text" placeholder="Şahsi internet sitesi adresiniz"
+                                                ng-disabled="!extend.extendData.IsUserWebName" ng-model="extend.extendData.UserWebName"
+                                                required />
+                                        </div>
+                                        <div ng-show="extend.extendData.IsUserWebName">
+                                            <p ng-hide="Form.UserWebName.$valid" class="invalid-feedback">Site ismi Giriniz!</p>
+                                            <p ng-show="Form.UserWebName.$valid" class="valid-feedback">Geçerli :)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 py-2 mb-2">
+                                        <label for="formHakkinda">Hakkında</label>
+                                        <textarea ng-model="extend.extendData.Biography" class="form-control font-normal" id="formHakkinda" rows="3" placeholder="Hakkınızda anlatmak istedikleriniz"></textarea>
+                                    </div>
+
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formTBBSicilNo">TBB Sicil No</label>
+                                        <input ng-model="extend.extendData.TBBNo" class="form-control font-normal" id="formTBBSicilNo" type="text" placeholder="TBB Sicil No Giriniz"
+                                        />
+                                    </div>
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formAdlBakSicilNo">Adl.Bak. Sicil No</label>
+                                        <input ng-model="extend.extendData.ADLNo" class="form-control font-normal" id="formAdlBakSicilNo" type="text" placeholder="Adl.Bak. Sicil No Giriniz"
+                                        />
+                                    </div>
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formBaroSicNo">Baro Sic. No</label>
+                                        <input ng-model="extend.extendData.BureauNo" class="form-control font-normal" id="formBaroSicNo" type="text" placeholder="Baro Sic. No Giriniz"
+                                        />
+                                    </div>
+
+                                    <div class="col-md-6 py-3 res-f-sidebar-col">
+                                        <label for="formKayitliBaro">Kayıtlı Olduğu Baro</label>
+                                        <select id="formKayitliBaro" class="custom-select font-normal" ng-model="extend.extendData.BureauCityId">
+                                            <option ng-repeat="city in cities track by $index" ng-value="city.id">{{city.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h4 class="h4 font-normal pt-5">Eğitim Bilgileri</h4>
+                                <div class="form-row pt-1">
+                                    <div class="col-sm-12 py-3">
+                                        <label for="formLisansOkulYiliSwitch">Lisans Okul Adı ve Yılı</label>
+                                        <div class="input-group input-group-fsm" data-switchWrapper>
+                                            <div class="input-group-prepend">
+                                                <span class="switch input-group-text">
+                                                    <input type="checkbox" class="switch" id="formLisansOkulYiliSwitch" data-switchInput ng-model="extend.extendData.IsLicenceSchoolName"
+                                                        ng-change="extend.GetIsLicenceSchoolName()" />
+                                                    <label class="mb-0 font-normal w-100 text-right" for="formLisansOkulYiliSwitch">
+                                                        <span class="d-block d-md-none">Açmak için tıklayın</span>
+                                                    </label>
+                                                </span>
+                                            </div>
+
+                                            <select class="form-control font-normal col-md-8 col-1" name="LicenceSchoolId" id="formLisansOkulAdi" ng-model="extend.extendData.LicenceSchoolId"
+                                                required ng-disabled="!extend.extendData.IsLicenceSchoolName" ng-change="extend.GetIsLicenceSchoolName()">
+                                                <option ng-repeat="school in schools track by $index" ng-value="{{school.id}}">{{school.name}}</option>
+                                            </select>
+
+                                            <input ng-model="extend.extendData.LicenceSchoolDate" name="LicenceSchoolYear" class="form-control font-normal col-md-4 col-12"
+                                                id="formLicenceSchoolYear" type="text" placeholder="Tarih Seçiniz" data-datePicker
+                                                readonly ng-disabled="!extend.extendData.IsLicenceSchoolName" required />
+                                        </div>
+
+                                        <div ng-show="extend.extendData.IsLicenceSchoolName">
+                                            <p ng-hide="Form.LicenceSchoolId.$valid" class="invalid-feedback">Okul Adı Seçiniz!</p>
+                                            <p ng-show="Form.LicenceSchoolId.$valid" class="valid-feedback">Geçerli :)</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-12 py-3">
+                                        <label for="formYuksekLisansOkulAdiSwitch">Yüksek Lisans Okul Adı ve Yılı</label>
+                                        <div class="input-group input-group-fsm" data-switchWrapper>
+                                            <div class="input-group-prepend">
+                                                <span class="switch input-group-text">
+                                                    <input type="checkbox" class="switch" id="formYuksekLisansOkulAdiSwitch" data-switchInput ng-model="extend.extendData.IsHighLicenceSchoolName"
+                                                        ng-change="extend.GetIsHighLicenceSchoolName()" />
+                                                    <label class="mb-0 font-normal w-100 text-right" for="formYuksekLisansOkulAdiSwitch">
+                                                        <span class="d-block d-md-none">Açmak için tıklayın</span>
+                                                    </label>
+                                                </span>
+                                            </div>
+
+                                            <select class="form-control font-normal col-md-8 col-1" name="HighLicenceSchoolId" id="formYuksekLisansOkulAdi" ng-model="extend.extendData.HighLicenceSchoolId"
+                                                required ng-disabled="!extend.extendData.IsHighLicenceSchoolName" ng-change="extend.GetIsHighLicenceSchoolName()">
+                                                <option ng-repeat="school in schools track by $index" ng-value="{{school.id}}">{{school.name}}</option>
+                                            </select>
+
+                                            <input ng-model="extend.extendData.HighLicenceSchoolDate" class="form-control font-normal col-md-4 col-12" id="formHighLicenceSchoolYear"
+                                                type="text" placeholder="Tarih Seçiniz" data-datePicker readonly required ng-disabled="!extend.extendData.IsHighLicenceSchoolName"
+                                            />
+                                        </div>
+
+                                        <div ng-show="extend.extendData.IsHighLicenceSchoolName">
+                                            <p ng-hide="Form.HighLicenceSchoolId.$valid" class="invalid-feedback">Okul Adı Giriniz!</p>
+                                            <p ng-show="Form.HighLicenceSchoolId.$valid" class="valid-feedback">Geçerli :)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 py-3">
+                                        <label for="formDoktoraOkulAdiSwitch">Doktora Okul Adı ve Yılı</label>
+                                        <div class="input-group input-group-fsm" data-switchWrapper>
+                                            <div class="input-group-prepend">
+                                                <span class="switch input-group-text">
+                                                    <input type="checkbox" class="switch" id="formDoktoraOkulAdiSwitch" data-switchInput ng-model="extend.extendData.IsPostLicenceSchoolName"
+                                                        ng-change="extend.GetIsPostLicenceSchoolName()" />
+                                                    <label class="mb-0 font-normal text-muted w-100 text-right" for="formDoktoraOkulAdiSwitch">
+                                                        <span class="d-block d-md-none">Açmak için tıklayın</span>
+                                                    </label>
+                                                </span>
+                                            </div>
+
+                                            <select class="form-control font-normal col-md-8 col-1" name="PostLicenceSchoolId" id="formDoktoraOkulAdi" ng-model="extend.extendData.PostLicenceSchoolId"
+                                                required ng-disabled="!extend.extendData.IsPostLicenceSchoolName" ng-change="extend.GetIsPostLicenceSchoolName()">
+                                                <option ng-repeat="school in schools track by $index" ng-value="{{school.id}}">{{school.name}}</option>
+                                            </select>
+
+
+                                            <input ng-model="extend.extendData.PostLicenceSchoolDate" class="form-control font-normal col-md-4" id="formPostLicenceSchoolYear"
+                                                type="text" placeholder="Tarih Seçiniz" data-datePicker ng-disabled="!extend.extendData.IsPostLicenceSchoolName"
+                                                readonly required />
+                                        </div>
+                                        <div ng-show="extend.extendData.IsPostLicenceSchoolName">
+                                            <p ng-hide="Form.PostLicenceSchoolId.$valid" class="invalid-feedback">Okul Adı Giriniz!</p>
+                                            <p ng-show="Form.PostLicenceSchoolId.$valid" class="valid-feedback">Geçerli :)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="h4 font-normal pt-5">Arama Sonuçları ile Eşleşme</h4>
+                                <div class="form-row pt-1">
+                                    <div class="col-sm-12 py-3">
+
+                                        <label for="formUserKeywords">Anahtar Kelimeler</label>
+                                        <input ng-model="extend.extendData.UserKeywords" class="form-control font-normal" id="formUserKeywords" type="hidden" data-create="true"
+                                            data-tagging placeholder="Kullanıcıların size ulaşmasını sağlayın" />
+                                        <small class="form-text text-muted pt-2 font-normal" id="formAnahtarKelimelerHelp">
+                                            <span class="icons icon-info"></span> Lütfen her bir anahtar kelimeyi
+                                            <mark>Enter</mark> tuşu veya aralarına
+                                            <mark>Virgül</mark> ekleyerek belirleyin.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-dark btn-lg float-right d-block-sm-btn">Değişiklikleri Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+</div>

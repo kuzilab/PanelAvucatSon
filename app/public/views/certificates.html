@@ -1,0 +1,85 @@
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Diploma ve Sertifikalar</h3>
+                </div>
+                <form class="col-12" ng-submit="certificate.SaveCertificate()">
+                    <div class="row">
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <div class="mb-3">
+                                    <h4 class="h4 font-normal">Dokümanlar</h4>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="mainTable" class="table table-hover table-bordered text-center flex-column font-normal" cellspacing="0" width="100%">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> #</th>
+                                                <th scope="col">Thumbnail</th>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> Dosya Adı</th>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> Dosya Tipi</th>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> Dosya Tarihi</th>
+                                                <th scope="col">Sil</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <div class="mb-3">
+                                    <h4 class="h4 font-normal">Sertifika veya Diploam Ekle </h4>
+                                    <div class="form-row">
+                                        <div class="col-sm-12 py-3 form-file-upload">
+                                            <label for="formMakaleDokuman">Dosya seç ve yükle</label>
+                                            <div class="input-group input-group-fsm" data-switchWrapper>
+                                                <div class="input-group-prepend">
+                                                    <span class="btn btn-light border border-black fileinput-button py-2 px-4 mx-auto">
+                                                        <span>
+                                                            <span class="icons icon-docs"></span> Doküman Seç</span>
+                                                        <input type="file" id="fileInput" oninput="angular.element(this).scope().certificateSelected(this)" required>
+                                                    </span>
+                                                </div>
+
+                                                <input ng-model="certificate.certificateData.CertificateFileName" class="form-control font-normal col-md-8 col-12" id="formMakaleAdi"
+                                                    type="text" placeholder="Doküman adı belirleyiniz" required />
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-outline-secondary mx-auto">Dokümanı Yükle</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+</div>
+
+<!-- Result Message -->
+<div id="toast" class="message show" ng-hide="visible">
+    <div class="toastInner" ng-style="setStyle()">
+        <div class="toastMessage">
+            {{message}}
+        </div>
+    </div>
+</div>

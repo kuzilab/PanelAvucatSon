@@ -1,0 +1,80 @@
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Sosyal Medya</h3>
+                </div>
+                <form class="col-12" ng-submit="social.updateOrSaveSocialInfo()" name="Form">
+
+                    <div class="row">
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <h3 class="h4 font-normal">Büro Sosyal Medya Hesapları</h3>
+                                <div class="form-row pt-1">
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Facebook</label>
+                                        <input ng-model="social.socialData.BureauFacebook" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Facebook..."
+                                        />
+                                    </div>
+
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Instagram</label>
+                                        <input ng-model="social.socialData.BureauInstagram" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Instagram..."
+                                        />
+                                    </div>
+
+                                    <div class="col-md-12 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Twitter</label>
+                                        <input ng-model="social.socialData.BureauTwitter" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Twitter..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix" style="margin-top: 20px">
+                                <h3 class="h4 font-normal">Kişisel Sosyal Medya Hesapları</h3>
+                                <div class="form-row pt-1">
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Facebook</label>
+                                        <input ng-model="social.socialData.UserFacebook" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Facebook..."
+                                        />
+                                    </div>
+
+                                    <div class="col-md-6 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Instagram</label>
+                                        <input ng-model="social.socialData.UserInstagram" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Instagram..."
+                                        />
+                                    </div>
+
+                                    <div class="col-md-12 py-2 res-f-sidebar-col">
+                                        <label for="formBuroAdi">Twitter</label>
+                                        <input ng-model="social.socialData.UserTwitter" class="form-control font-normal" id="formBuroAdi" type="text" placeholder="Twitter..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" col-12 py-lg-5 px-lg-5">
+                                <div class="clearfix">
+                                    <button type="submit" class="btn btn-dark btn-lg float-right d-block-sm-btn">{{social.action}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </form>
+                </div>
+        </article>
+        </div>
+    </div>
+</div>
+
+<!-- Result Message -->
+<div id="toast" class="message show" ng-hide="visible">
+    <div class="toastInner" ng-style="setStyle()">
+        <div class="toastMessage">
+            {{message}}
+        </div>
+    </div>
+</div>

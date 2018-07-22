@@ -1,0 +1,51 @@
+[
+
+    {
+        "name": "Profil",
+        "icon": "icon-user icons",
+        "href": "/",
+        "class": "nav-link text-nowrap d-flex active"
+    },
+
+    {
+        "name": "Detay Profil",
+        "icon": "icon-list icons",
+        "href": "/extendProfile",
+        "class": "nav-link text-nowrap d-flex"
+    },
+
+    {
+        "name": "Diploma ve Sertifikalar",
+        "icon": "icon-graduation icons",
+        "href": "certificates",
+        "class": "nav-link text-nowrap d-flex"
+    },
+
+    {
+        "name": "Yayınlar",
+        "icon": "icon-book-open icons",
+        "href": "/essays",
+        "class": "nav-link text-nowrap d-flex"
+    },
+
+    {
+        "name": "Yorumlar",
+        "icon": "icon-bubble icons",
+        "href": "/comments",
+        "class": "nav-link text-nowrap d-flex"
+    },
+    {
+        "name": "Sosyal Medya",
+        "icon": "icon-camera icons",
+        "href": "social",
+        "class": "nav-link text-nowrap d-flex"
+    },
+
+    {
+        "name": "Güvenli Çıkış",
+        "icon": "icon-power icons",
+        "href": "#",
+        "class": "nav-link text-nowrap d-flex logout"
+    }
+
+]

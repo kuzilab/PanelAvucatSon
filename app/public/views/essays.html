@@ -1,0 +1,104 @@
+<div id="main">
+    <div class="clearfix">
+        <article class="container" id="mainContent">
+            <div class="row">
+                <div class="container-card col-12 card-header pt-4 px-lg-5">
+                    <h3 class="h2 fw-300">Yayınlar</h3>
+                </div>
+                <form class="col-12" name="Form" ng-submit="essay.SaveOrUpdateEssay()">
+                    <div class="row">
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <div class="mb-3">
+                                    <h4 class="h4 font-normal">Yayınları Düzenle</h4>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="mainTable" class="table table-hover table-bordered text-center flex-column font-normal" cellspacing="0" width="100%">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> #</th>
+                                                <th scope="col">Kapak resmi</th>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> Yayın Başlığı</th>
+                                                <th scope="col">
+                                                    <span class="icons icon-shuffle"></span> Yayın Tarihi</th>
+                                                <th scope="col">Düzenle</th>
+                                                <th scope="col">Sil</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <div class="mb-5">
+                                    <h4 class="h4 font-normal">Yayın Ekle</h4>
+                                </div>
+
+                                <div class="form-row pt-3">
+                                    <div class="col-lg-6 col-12 py-2">
+                                        <label for="formMakaleAdi">Yayın Adı</label>
+                                        <input ng-model="essay.essayData.EssayName" name="EssayName" class="form-control font-normal" id="formMakaleAdi" type="text"
+                                            placeholder="Makale adı belirleyiniz" required />
+                                        <p ng-hide="Form.EssayName.$valid" class="invalid-feedback">Yayın adı giriniz!</p>
+                                        <p ng-show="Form.EssayName.$valid" class="valid-feedback">Geçerli :)</p>
+                                    </div>
+
+
+
+                                    <div class="col-lg-6 col-12 py-2">
+                                        <label for="formMakaleKonusu">Yayın Konusu</label>
+                                        <input ng-model="essay.essayData.EssaySubject" name="EssaySubject" class="form-control font-normal" id="formMakaleKonusu"
+                                            type="text" placeholder="Makale konusu belirleyiniz" required />
+                                        <p ng-hide="Form.EssaySubject.$valid" class="invalid-feedback">Yayın Konusu giriniz!</p>
+                                        <p ng-show="Form.EssaySubject.$valid" class="valid-feedback">Geçerli :)</p>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 py-2 mt-3">
+                                        <span class="btn btn-light border border-black fileinput-button py-2 px-4 justify-content-center">
+                                            <span>Kapak Resmi Seç</span>
+                                            <input name="EssayPic" type="file" id="fileInput" oninput="angular.element(this).scope().essayPicSelected(this)" id="formMakaleResim"
+                                                required>
+                                        </span>
+                                        <small class="text-muted pt-4 pl-lg-3" id="formAnahtarKelimelerHelp">
+                                            <mark>{{selectedPicName}}</mark>
+                                        </small>
+                                    </div>
+
+                                    <div class="col-sm-12 py-2">
+                                        <textarea class="form-control font-normal" id="formEditor" rows="3" name="Editor"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-card col-12 py-lg-5 px-lg-5">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-dark btn-lg float-right d-block-sm-btn">{{essay.Action}}
+                                </button>
+                                <button type="button" class="btn btn-dark btn-lg float-right d-block-sm-btn" ng-click="essay.CancelAction()" style="margin-right: 5px">İptal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+</div>
+
+<!-- Result Message -->
+<div id="toast" class="message show" ng-hide="visible">
+    <div class="toastInner" ng-style="setStyle()">
+        <div class="toastMessage">
+            {{message}}
+        </div>
+    </div>
+</div>
