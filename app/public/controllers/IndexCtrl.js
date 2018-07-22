@@ -7,8 +7,7 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
     console.log('Index Controller')
 
     $rootScope.user = AuthUser.getCookieUser();
-
-    console.log($rootScope.user);
+    console.log($window.localStorage.getItem('deneme'));
 
 
     vm.ChangeClass = function (menu) {
