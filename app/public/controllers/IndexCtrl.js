@@ -1,10 +1,13 @@
 var IndexCtrl = angular.module('IndexCtrl', []);
 
 
-IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location, MockData, AuthUser, Auth, $window, $cookieStore) {
+IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location, MockData, AuthUser, Auth, $window, $cookieStore, $location) {
 
     var vm = this;
     console.log('Index Controller')
+
+    console.log($location.search());
+
 
     $rootScope.user = AuthUser.getCookieUser();
     console.log($cookieStore.get('test'));
