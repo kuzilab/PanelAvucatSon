@@ -12,6 +12,9 @@ var UserSchema = new Schema({
         type: String,
         required: false,
     },
+    ProfileBase64Pic: {
+        type: String
+    },
     Phone: {
         type: String,
         required: false,

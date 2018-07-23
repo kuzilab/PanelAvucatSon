@@ -26,7 +26,8 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         Password: $scope.user.Password,
         PasswordPlain: $scope.user.PasswordPlain,
         ProcessDate: $scope.user.ProcessDate,
-        LocationAddress: $scope.user.LocationAddress
+        LocationAddress: $scope.user.LocationAddress,
+        ProfileBase64Pic: $scope.user.ProfileBase64Pic
     }
 
     console.log(vm.profileData);
@@ -50,6 +51,8 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         console.log(vm.profileData.ExpertiseFields);
 
     }
+
+
 
 
 
@@ -86,6 +89,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
                             if ($scope.changedProfile && $scope.PicSize) {
                                 vm.profileData.ProfilePicPath = e.target.result // Base64 
+                                vm.profileData.ProfileBase64Pic = e.target.result;
                                 $scope.$apply(function () {});
                             }
                         }
@@ -133,8 +137,6 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         }
         // ---------------------------------------------------
 
-
-
         if (vm.profileData.LatLng != null && vm.profileData.LatLng != undefined) {
             if (vm.RePassword == vm.profileData.PasswordPlain) {
 
@@ -152,12 +154,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                                 if (response.data.success) {
                                     $rootScope.user = response.data.user;
                                     $scope.user = $rootScope.user;
-
-
-
-
                                 }
-
                             });
                             $scope.message = "Profiliniz Güncellendi :)";
                             $scope.back = success;
@@ -177,9 +174,6 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
                     vm.profileData.Password = vm.profileData.PasswordPlain;
                     vm.profileData.ProcessDate = globe.getDate();
-
-
-
 
                     CrudData.updateProfile(vm.profileData, function (response) {
                         console.log(response);

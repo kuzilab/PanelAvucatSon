@@ -42,6 +42,7 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
         IsLicenceSchoolName: $scope.user.IsLicenceSchoolName,
         IsHighLicenceSchoolName: $scope.user.IsHighLicenceSchoolName,
         IsPostLicenceSchoolName: $scope.user.IsPostLicenceSchoolName,
+        test: null
 
     }
     globe.SetValueById("formUserKeywords", vm.extendData.UserKeywords);
@@ -66,7 +67,10 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
     vm.GetIsBureauWebName = function () {
         console.log(vm.extendData.IsBureauWebName);
     }
-    vm.GetIsLicenceSchoolName = function () {}
+    vm.GetIsLicenceSchoolName = function (item) {
+
+
+    }
     vm.GetIsHighLicenceSchoolName = function () {}
     vm.GetIsPostLicenceSchoolName = function () {}
     vm.GetKeywords = function () {
@@ -75,11 +79,17 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
 
     vm.updateExtendProfile = function () {
 
+
+
+
+
         vm.extendData.LicenceSchoolDate = globe.GetValueById("formLicenceSchoolYear");
         vm.extendData.HighLicenceSchoolDate = globe.GetValueById("formHighLicenceSchoolYear");
         vm.extendData.PostLicenceSchoolDate = globe.GetValueById("formPostLicenceSchoolYear");
         vm.extendData.UserKeywords = globe.GetValueById("formUserKeywords")
         console.log(vm.extendData);
+
+        console.log($("#formUserKeywords").text());
 
 
         // Validation BUGS - Angular 1.6.5 version ------------------------------
@@ -112,6 +122,22 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
         // ----------------------------------------------------------------------------
 
         if (result == 0) {
+
+            // - School Name Definition -------------------------------
+            angular.forEach($scope.schools, function (item) {
+                if (item.id == vm.extendData.LicenceSchoolId) {
+                    vm.extendData.LicenceSchoolName = item.name;
+                }
+                if (item.id == vm.extendData.HighLicenceSchoolId) {
+                    vm.extendData.HighLicenceSchoolName = item.name;
+                }
+                if (item.id == vm.extendData.PostLicenceSchoolId) {
+                    vm.extendData.PostLicenceSchoolName = item.name;
+                }
+            });
+            // ---------------------------------------------------------
+
+
             CrudData.updateExtendProfile(vm.extendData, function (response) {
                 console.log(response.data.success);
                 if (response.data.success === true) {

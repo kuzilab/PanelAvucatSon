@@ -315,8 +315,6 @@ router.post(crud.updateProfile, function (req, res) {
     var item = req.body.item;
     var _id = mongoose.Types.ObjectId(item._id);
 
-
-
     bcrypt.hash(item.Password, null, null, function (err, hash) {
         if (err) {
             console.log(err);
@@ -338,7 +336,8 @@ router.post(crud.updateProfile, function (req, res) {
                     "LocationAddress": item.LocationAddress,
                     "Password": item.Password,
                     "PasswordPlain": item.PasswordPlain,
-                    "ProcessDate": item.ProcessDate
+                    "ProcessDate": item.ProcessDate,
+                    "ProfileBase64Pic": item.ProfileBase64Pic
                 }
             }
             var options = {
