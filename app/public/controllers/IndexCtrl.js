@@ -6,11 +6,14 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
     var vm = this;
     console.log('Index Controller')
 
-    console.log($location.search());
-
-
     $rootScope.user = AuthUser.getCookieUser();
-    console.log($cookieStore.get('test'));
+
+    vm.header = {};
+    vm.header.brand = "Avucat";
+    vm.header.title = "Avucat Yönetim Paneli";
+    vm.header.profile = $rootScope.user.ProfilePicPath;
+    vm.header.username = $rootScope.user.NameSurname
+    vm.loggedIn = true;
 
 
     vm.ChangeClass = function (menu) {
@@ -18,7 +21,14 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
 
         if (menu.name == "Güvenli Çıkış") {
             Auth.logout();
+            var AuthenticateSituation = false;
+            console.log($rootScope.user.Email);
             $window.location.href = "http://localhost:3001/avukat-giris-yap"
+            Auth.UpdateAuthenticate($rootScope.user.Email, AuthenticateSituation, function (response) {
+                if (response.data.success) {
+                    $window.location.href = "http://localhost:3001/avukat-giris-yap"
+                }
+            });
         } else {
             for (var i = 0; i < $rootScope.menus.length; i++) {
                 if (menu.name != $rootScope.menus[i].name) {
@@ -31,14 +41,6 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
             }
         }
     }
-
-    vm.header = {};
-    vm.header.brand = "Avucat";
-    vm.header.title = "Avucat Yönetim Paneli";
-    vm.header.profile = $rootScope.user.ProfilePicPath;
-    vm.header.username = $rootScope.user.NameSurname
-    vm.loggedIn = true;
-
     MockData.getMenus().then(function (data) {
         $rootScope.menus = data;
     });

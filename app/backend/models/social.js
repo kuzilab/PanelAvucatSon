@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var SocialSchema = new Schema({
 
+
     UserId: {
         type: String
     },

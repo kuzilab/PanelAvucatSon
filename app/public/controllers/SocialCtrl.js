@@ -1,22 +1,33 @@
 var SocialCtrl = angular.module('SocialCtrl', []);
 
-SocialCtrl.controller('SocialController', function ($timeout, $scope, $rootScope, $location, $sce, CrudData) {
+SocialCtrl.controller('SocialController', function ($timeout, $scope, $rootScope, $location, $sce, CrudData, AuthUser) {
     var vm = this;
     $scope.visible = true;
     $scope.message = "";
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
     var back = success;
-    var user = $rootScope.user;
+    $scope.user = AuthUser.getCookieUser();
     vm.action = "Değişiklikleri Kaydet"
     console.log('Social Controller');
-    var UserId = user._id;
-    CrudData.getSocialInfo(UserId, function (response) {
 
+    vm.socialData = {
+        _id: null,
+        UserId: null,
+        BureauFacebook: null,
+        BureauInstagram: null,
+        BureauTwitter: null,
+        UserFacebook: null,
+        UserInstagram: null,
+        UserTwitter: null,
+        ProcessDate: null
+    }
+
+    var UserId = $scope.user._id;
+    CrudData.getSocialInfo(UserId, function (response) {
         if (response.data.success) {
 
             var socials = response.data.socials;
-
             if (response.data.socials.length != 0) {
                 vm.action = "Güncelle";
                 vm.socialData = {
@@ -49,7 +60,9 @@ SocialCtrl.controller('SocialController', function ($timeout, $scope, $rootScope
 
     vm.updateOrSaveSocialInfo = function () {
         vm.socialData.ProcessDate = globe.getDate();
-        vm.socialData.UserId = user._id;
+        vm.socialData.UserId = $scope.user._id;
+
+        console.log(vm.socialData);
 
         CrudData.saveOrUpdateSocialInfo(vm.socialData, vm.action, function (response) {
             if (response.data.success) {
@@ -65,6 +78,7 @@ SocialCtrl.controller('SocialController', function ($timeout, $scope, $rootScope
 
                 $timeout(function () {
                     $scope.visible = true;
+
                 }, 2500);
             }
         });

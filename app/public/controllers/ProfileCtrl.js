@@ -9,32 +9,31 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
 
-    var user = $rootScope.user;
+    $scope.user = AuthUser.getCookieUser();
+    console.log(AuthUser.getCookieUser());
 
-    vm.RePassword = user.PasswordPlain;
-
+    vm.RePassword = $scope.user.PasswordPlain;
     vm.profileData = {
-        _id: user._id,
-        NameSurname: user.NameSurname,
-        ProfilePicPath: user.ProfilePicPath,
-        Phone: user.Phone,
-        Email: user.Email,
-        ExpertiseFields: user.ExpertiseFields,
-        LatLng: user.LatLng,
-        Lat: user.Lat,
-        Lng: user.Lng,
-        Password: user.Password,
-        PasswordPlain: user.PasswordPlain,
-        ProcessDate: user.ProcessDate,
-        LocationAddress: user.LocationAddress
+        _id: $scope.user._id,
+        NameSurname: $scope.user.NameSurname,
+        ProfilePicPath: $scope.user.ProfilePicPath,
+        Phone: $scope.user.Phone,
+        Email: $scope.user.Email,
+        ExpertiseFields: $scope.user.ExpertiseFields,
+        LatLng: $scope.user.LatLng,
+        Lat: $scope.user.Lat,
+        Lng: $scope.user.Lng,
+        Password: $scope.user.Password,
+        PasswordPlain: $scope.user.PasswordPlain,
+        ProcessDate: $scope.user.ProcessDate,
+        LocationAddress: $scope.user.LocationAddress
     }
 
-    console.log(vm.profileData.ProfilePicPath);
+    console.log(vm.profileData);
 
-    var arr = globe.SetValueById('formUzmanlikAlanlari', user.ExpertiseFields);
+    globe.SetValueById('formUzmanlikAlanlari', $scope.user.ExpertiseFields);
 
     getExpertiseFields = function () {
-
         vm.profileData.ExpertiseFields = globe.GetValueById('formUzmanlikAlanlari');
         if (vm.profileData.ExpertiseFields.length != 0) {} else {
             vm.profileData.ExpertiseFields = null;
@@ -49,7 +48,10 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
     vm.SelectedExpertise = function () {
         console.log(vm.profileData.ExpertiseFields);
+
     }
+
+
 
 
     // --------------------------------------------------------------------------------------------
@@ -96,10 +98,10 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
     // GET EXPERTISE FIELDS ------------------------------------------------------------------------
     MockData.getExpertiseFields().then(function (data) {
-        $scope.expertises = data;
 
+        $scope.expertises = data;
         $scope.list = [];
-        var userExpertises = user.ExpertiseFields;
+        var userExpertises = $scope.user.ExpertiseFields;
         if (data.length != 0) {
             for (var i = 0; i < userExpertises.length; i++) {
                 var expertise = userExpertises[i];
@@ -113,22 +115,28 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     });
 
     vm.test = function () {
-
         console.log(globe.GetValueById('formUzmanlikAlanlari'));
-
     }
 
     vm.updateProfile = function () {
 
+        console.log(vm.profileData);
+
+        // Form Uzmanlık Alanı Problemi ----------------------
+        var arr = globe.GetValueById('formUzmanlikAlanlari');
+        if (arr.length != 0) {
+            var arrTo = [];
+            angular.forEach(arr, function (item) {
+                arrTo.push(parseInt(item));
+            });
+            vm.profileData.ExpertiseFields = arrTo;
+        }
+        // ---------------------------------------------------
+
+
+
         if (vm.profileData.LatLng != null && vm.profileData.LatLng != undefined) {
             if (vm.RePassword == vm.profileData.PasswordPlain) {
-
-                var arr = globe.GetValueById('formUzmanlikAlanlari');
-                var arrTo = [];
-                angular.forEach(arr, function (item) {
-                    arrTo.push(parseInt(item));
-                });
-                vm.profileData.ExpertiseFields = arrTo;
 
                 if ($scope.changedProfile == true && $scope.PicSize == true) {
                     console.log("changed profile");
@@ -143,7 +151,11 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                             Auth.login(vm.profileData.Email, vm.profileData.Password, function (response) {
                                 if (response.data.success) {
                                     $rootScope.user = response.data.user;
-                                    user = $rootScope.user;
+                                    $scope.user = $rootScope.user;
+
+
+
+
                                 }
 
                             });
@@ -166,17 +178,17 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                     vm.profileData.Password = vm.profileData.PasswordPlain;
                     vm.profileData.ProcessDate = globe.getDate();
 
+
+
+
                     CrudData.updateProfile(vm.profileData, function (response) {
                         console.log(response);
                         if (response.data.success == true) {
                             Auth.login(vm.profileData.Email, vm.profileData.Password, function (response) {
-
                                 if (response.data.success) {
                                     $rootScope.user = response.data.user;
-                                    user = $rootScope.user;
+                                    $scope.user = $rootScope.user;
                                 }
-
-
                             });
                             $scope.message = "Profiliniz Güncellendi :)"
                             $scope.back = success;

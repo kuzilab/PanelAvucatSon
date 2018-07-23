@@ -33,6 +33,7 @@ var Certificate = require('./models/certificate');
 var Essay = require('./models/essay');
 var Comment = require('./models/comment');
 var Social = require('./models/social');
+var Authenticate = require('./models/authenticate');
 
 // upload methods -------------------------
 var upload = {};
@@ -47,6 +48,9 @@ auth.login = "/login";
 auth.signup = "/signup";
 auth.me = "/me";
 auth.isUser = "/isUser"
+auth.CheckAuthenticate = "/CheckAuthenticate";
+auth.UpdateAuthenticate = "/UpdateAuthenticate";
+
 
 
 // crud methods ---------------------------
@@ -161,6 +165,69 @@ router.post(auth.isUser, function (req, res) {
     })
 });
 
+// CheckAuthenticate --------------------------
+router.post(auth.CheckAuthenticate, function (req, res) {
+
+    var Email = req.body.Email;
+    Authenticate.findOne({
+        Email: Email
+    }).select('_id Email PasswordPlain IsUser IsAuthneticated').exec(function (err, authenticate) {
+
+        console.log(authenticate);
+
+        if (authenticate.IsUser == 'true' && authenticate.IsAuthneticated == true) {
+            res.send({
+                success: true,
+                situation: "authenticate_exist",
+                message: "Authenticate Mevcut !!!",
+                authenticate: authenticate
+            });
+        } else {
+            res.send({
+                success: false,
+                situation: "no_authenticate",
+                message: "Authenticate Mevcut değil !!!"
+            });
+        }
+    });
+
+});
+
+// Update Authenticate -------------------------
+router.post(auth.UpdateAuthenticate, function (req, res) {
+
+    var Email = req.body.Email;
+    var UpdateAuthenticate = req.body.AuthenticateSituation;
+    var condition = {
+        "Email": Email
+    };
+    var update = {
+        $set: {
+            "IsAuthenticated": AuthenticateSituation,
+            "IsUser": true
+        }
+    }
+    var options = {
+        multi: true
+    };
+    Authenticate.update(condition, update, options, function (err, affected) {
+
+        if (err) {
+            res.json({
+                success: false,
+                situation: "update_failed",
+                message: "Authenticate Başarısız !!!",
+            });
+        } else {
+            res.json({
+                success: true,
+                situation: "update_success",
+                message: "Authenticate Başarılı",
+            });
+        }
+    });
+});
+
 
 // User Login ---------------------------------
 router.post(auth.login, function (req, res) {
@@ -169,7 +236,7 @@ router.post(auth.login, function (req, res) {
     var Password = req.body.Password;
     User.findOne({
         Email: Email
-    }).select('_id IsBureauWebName BureauCityId IsUserWebName IsHighLicenceSchoolName IsPostLicenceSchoolName IsLicenceSchoolName NameSurname ProfilePicPath Phone Email ExpertiseFields LatLng Lat Lng Password PasswordPlain BureauName BureauWebName Address ExperienceYear UserWebName Biography TBBNo ADLNo BureauNo BureauCity LicenceSchoolName LicenceSchoolDate HighLicenceSchoolName HighLicenceSchoolDate PostLicenceSchoolName PostLicenceSchoolDate UserKeywords ProcessDate UserSituation UserAppName LocationAddress').exec(function (err, user) {
+    }).select('_id IsBureauWebName BureauCityId  IsUserWebName IsHighLicenceSchoolName IsPostLicenceSchoolName IsLicenceSchoolName NameSurname ProfilePicPath Phone Email ExpertiseFields LatLng Lat Lng Password PasswordPlain BureauName BureauWebName Address ExperienceYear UserWebName Biography TBBNo ADLNo BureauNo BureauCity LicenceSchoolName LicenceSchoolId LicenceSchoolDate HighLicenceSchoolName HighLicenceSchoolId HighLicenceSchoolDate PostLicenceSchoolName PostLicenceSchoolId PostLicenceSchoolDate UserKeywords ProcessDate UserSituation UserAppName LocationAddress').exec(function (err, user) {
         // check User First Step
         if (user === null) {
             res.send({
@@ -714,7 +781,10 @@ router.post(crud.saveOrUpdateSocialInfo, function (req, res) {
     var item = req.body.item;
     var action = req.body.action;
 
-    if (action = "Güncelle") {
+    console.log(action);
+    console.log(item);
+
+    if (action == "Güncelle") {
 
         var _id = mongoose.Types.ObjectId(item._id);
         var UserId = item.UserId;
@@ -756,6 +826,8 @@ router.post(crud.saveOrUpdateSocialInfo, function (req, res) {
 
     } else {
 
+        console.log("Kaydetteyim");
+
         var social = new Social({
             UserId: item.UserId,
             BureauFacebook: item.BureauFacebook,
@@ -779,7 +851,7 @@ router.post(crud.saveOrUpdateSocialInfo, function (req, res) {
                     success: true,
                     situation: "social_created",
                     message: "Sosyal Medya oluşturuldu :)",
-                    socials: socials
+                    social: social
                 });
             }
         });

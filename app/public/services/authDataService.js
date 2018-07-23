@@ -4,6 +4,24 @@ var authDataService = angular.module('authDataService', []);
 authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
 
     var authService = {};
+
+    authService.CheckAuthenticate = function (Email, callback) {
+        return $http.post('/api/CheckAuthenticate', {
+            Email: Email,
+        }).then(function (response) {
+            callback(response);
+        });
+    }
+
+    authService.UpdateAuthenticate = function (Email, AuthenticateSituation, callback) {
+        return $http.post('/api/UpdateAuthenticate', {
+            Email: Email,
+            AuthenticateSituation: AuthenticateSituation
+        }).then(function (response) {
+            callback(response)
+        });
+    }
+
     authService.isUser = function (Email, callback) {
         return $http.post('/api/isUser', {
             Email: Email,
@@ -18,13 +36,8 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
         }).then(function (response) {
             if (response.data.success) {
 
-                // AuthToken.setToken(response.data.token);
-                //   AuthUser.setUser(response.data.user)
-                //  AuthToken.setCookieToken();
                 AuthUser.setCookieUser();
-
                 callback(response)
-
             } else {
                 if (response.data.situation === "create_issue") {
                     callback(response);
@@ -44,7 +57,9 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
                     callback(response);
                 } else {
 
-                    //   AuthToken.setCookieToken();
+                    console.log("login cagrıldıktan sonra user", response.data.user);
+
+                    AuthToken.setCookieToken(response.data.token);
                     AuthUser.setCookieUser(response.data.user);
                     // AuthToken.setToken(response.data.token);
                     // AuthUser.setUser(response.data.user)
@@ -139,8 +154,11 @@ authDataService.service('AuthUser', function ($window, $cookieStore) {
 
     authUserFactory.setCookieUser = function (user) {
 
+        console.log("setCookieUser", user);
+
 
         if (user !== null || user !== undefined) {
+            $cookieStore.remove('user');
             $cookieStore.put('user', user);
         } else {
             $cookieStore.remove('user');

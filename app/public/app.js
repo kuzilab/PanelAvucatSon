@@ -4,10 +4,58 @@ var app = angular.module('app', ['ngCookies', 'ngRoute', 'ngMessages', 'ProfileC
 
 
 // Environments ---------------------------------
-app.run(function ($rootScope, $location) {
+app.run(function ($rootScope, $location, Auth, $cookieStore) {
 
+    var item = $location.search();
+    var Email = item.Email;
+
+    if (Email != undefined && Email != null) {
+        $cookieStore.put('Email', Email);
+    } else {
+        Email = $cookieStore.get('Email');
+    }
+    console.log($cookieStore.get("run"));
+
+
+    if ($cookieStore.get("run") == undefined) {
+
+        Auth.CheckAuthenticate(Email, function (response) {
+            if (response.data.success) {
+                var Email = response.data.authenticate.Email;
+                var PasswordPlain = response.data.authenticate.PasswordPlain;
+
+                Auth.login(Email, PasswordPlain, function (response) {
+                    if (response.data.success) {
+
+                        // SetCookieToken and SetCookieUser();
+
+                    } else {
+                        vm.message = response.data.message;
+                        vm.situation = response.data.situation;
+                        if (vm.situation === "no_user") {
+
+                            console.log(vm.message)
+
+                        } else if (vm.situation === "invalid_password") {
+
+                            console.log(vm.message)
+
+                        } else if (vm.situation === "valid_user") {
+
+                            console.log(vm.message)
+                        }
+                    }
+                });
+            }
+        });
+
+    } else {
+        $cookieStore.put("run", false);
+    }
+
+
+    // This is For Initializer()
     $rootScope.sayac = 0;
-
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         console.log("route is changed");
         var path = $location.path();

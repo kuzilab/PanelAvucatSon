@@ -20,9 +20,14 @@ mongoose.connect(config.database, {
 
 // Express -------------------------
 app.use(bodyParser.urlencoded({
+    limit: '5mb',
+    parameterLimit: 100000,
     extended: false
 }));
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/app/public'));
 

@@ -85,7 +85,7 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
 
             CrudData.deleteCertificate(item, function (response) {
                 if (response.data.success) {
-                    CrudData.getCertificates(UserId, CertificateSituation, function (response) {
+                    CrudData.getCertificates(UserId, function (response) {
                         if (response.data.success) {
                             $scope.certificates = response.data.certificates;
                             $scope.message = "Silme Başarılı :)";

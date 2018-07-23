@@ -155,8 +155,10 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
 
         vm.essayData.EssayContent = globe.GetValueById("formEditor");
 
+        console.log(vm.essayData.EssayContent);
 
-        if (vm.essayData.EssayContent == null || vm.essayData.EssayContent == '') {
+
+        if (vm.essayData.EssayContent == null || vm.essayData.EssayContent == '' || vm.essayData.EssayContent == '<p><br></p>') {
 
             $scope.message = "Yayın İçeriği Girmelisiniz :|";
             $scope.back = warn;

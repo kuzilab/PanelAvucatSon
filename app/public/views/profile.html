@@ -46,8 +46,8 @@
                                         <div class="row">
                                             <div class="col-lg-6 res-f-sidebar-col py-3">
                                                 <label for="formAdSoyad">Ad Soyad</label>
-                                                <input class="form-control font-normal is-valid" name="NameSurname" id="formAdSoyad" type="text" placeholder="Ad Soyad" ng-model="profile.profileData.NameSurname"
-                                                    ng-required="true" />
+                                                <input class="form-control font-normal" name="NameSurname" id="NameSurname" type="text" placeholder="Ad Soyad" ng-model="profile.profileData.NameSurname"
+                                                    required />
                                                 <p ng-hide="Form.NameSurname.$valid" class="invalid-feedback">Ad Soyad Giriniz!</p>
                                                 <p ng-show="Form.NameSurname.$valid" class="valid-feedback">Ad Soyad Geçerli :)</p>
                                             </div>
@@ -71,7 +71,7 @@
                                             <div class="col-lg-12 res-f-sidebar-col py-3">
                                                 <label for="formUzmanlikAlanlari">Uzmanlık Alanları</label>
                                                 <select class="font-normal form-control" name="ExpertiseField" id="formUzmanlikAlanlari" ng-model="profile.profileData.ExpertiseFields"
-                                                    onchange="getExpertiseFields()" required multiple data-tagging data-create="false">
+                                                    onchange="getExpertiseFields()" multiple data-tagging data-create="false">
                                                     <option value="1">Aile Hukuku</option>
                                                     <option value="2">Anayasa Hukuku</option>
                                                     <option value="3">AB Hukuku</option>
@@ -93,14 +93,11 @@
                                                 <p ng-show="Form.ExpertiseField.$valid" class="valid-feedback">Uzmanlık Geçerli :)</p>
                                             </div>
 
-
-
-
                                             <div class="col-lg-12 res-f-sidebar-col py-3 ">
                                                 <label for="formEposta ">E-posta</label>
                                                 <input class="form-control font-normal " id="formEposta" name="Email" type="email" placeholder="E-posta adresiniz" required
                                                     ng-model="profile.profileData.Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                                                    required/>
+                                                    disabled required/>
                                                 <p ng-hide="Form.Email.$valid" class="invalid-feedback">Format Doğru Değil!</p>
                                                 <p ng-show="Form.Email.$valid" class="valid-feedback">Email Geçerli :)</p>
                                             </div>
