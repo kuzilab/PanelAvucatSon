@@ -1,6 +1,6 @@
 var EssaysCtrl = angular.module('EssaysCtrl', []);
 
-EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope, CrudData, UploadSrv, $compile) {
+EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope, CrudData, UploadSrv, $compile, AuthUser) {
 
     console.log('Essays Controller');
     angular.element(function () {

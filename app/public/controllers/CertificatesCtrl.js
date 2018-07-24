@@ -47,7 +47,7 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
     });
 
     vm.certificateData = {
-        UserId: user._id,
+        UserId: $rootScope.user._id,
         CertificateFileName: null,
         CertificateFilePath: null,
         FileType: null,
