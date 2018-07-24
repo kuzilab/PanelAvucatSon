@@ -170,7 +170,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
             }, 2500);
         } else {
             vm.essayData.ProcessDate = globe.getDate();
-            vm.essayData.EssayImgPath = '../assets/uploadEssayFiles/' + user._id + "_" + vm.essayData.EssayPicName;
+            vm.essayData.EssayImgPath = '../assets/uploadEssayFiles/' + $rootScope.user._id + "_" + vm.essayData.EssayPicName;
             vm.essayData.EssaySituation = true;
 
             console.log(vm.essayData);

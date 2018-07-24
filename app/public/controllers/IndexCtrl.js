@@ -62,6 +62,7 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
         console.log($rootScope.selectedMenu);
 
         if (menu.name == "Güvenli Çıkış") {
+            $window.localStorage.setItem('checked', undefined);
             Auth.logout();
             var AuthenticateSituation = false;
             //   $window.location.href = "http://localhost:3001/avukat-giris-yap"
