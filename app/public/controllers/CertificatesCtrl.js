@@ -102,7 +102,7 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
                             $scope.visible = false;
                             $timeout(function () {
                                 $scope.visible = true;
-                                //   location.reload();
+                                location.reload();
                             }, 2500);
                         }
                     });
