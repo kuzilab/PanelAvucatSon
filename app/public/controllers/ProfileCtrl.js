@@ -26,7 +26,11 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         PasswordPlain: $rootScope.user.PasswordPlain,
         ProcessDate: $rootScope.user.ProcessDate,
         LocationAddress: $rootScope.user.LocationAddress,
+        ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
     }
+
+    console.log(vm.profileData);
+
 
     if (vm.profileData.ProfileBase64Pic != undefined) {
         vm.profileData.ProfileBase64Pic = $rootScope.user.ProfileBase64Pic
@@ -180,11 +184,6 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                                         LocationAddress: $rootScope.user.LocationAddress,
                                         ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
                                     }
-
-
-
-
-
                                 }
                             });
                             $scope.message = "Profiliniz Güncellendi :)";
