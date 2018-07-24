@@ -11,51 +11,40 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
 
     $rootScope.updatedExtend = false;
     $rootScope.updatedProfile = false;
+
     console.log(Email);
     vm.header = {};
     vm.header.brand = "Avucat";
     vm.header.title = "Avucat Yönetim Paneli";
     vm.loggedIn = true;
 
-    console.log($cookieStore.get("run"));
-
-    if ($window.localStorage.getItem("checked") == undefined)
-
+    if ($window.localStorage.getItem("checked") == undefined || $window.localStorage.getItem('checked') == null) {
         Auth.CheckAuthenticate(Email, function (response) {
             if (response.data.success) {
                 var Email = response.data.authenticate.Email;
                 var PasswordPlain = response.data.authenticate.PasswordPlain;
 
-
                 Auth.login(Email, PasswordPlain, function (response) {
                     if (response.data.success) {
-
                         console.log("Authenticated deyim");
                         vm.header.username = response.data.user.NameSurname;
                         vm.header.profile = response.data.user.ProfilePicPath;
                         $window.localStorage.setItem('checked', 'checked');
-
                     } else {
                         vm.message = response.data.message;
                         vm.situation = response.data.situation;
                         if (vm.situation === "no_user") {
-
                             console.log(vm.message)
-
                         } else if (vm.situation === "invalid_password") {
-
                             console.log(vm.message)
-
                         } else if (vm.situation === "valid_user") {
-
                             console.log(vm.message)
                         }
                     }
                 });
             }
         });
-
-
+    }
 
     vm.ChangeClass = function (menu) {
 
