@@ -30,9 +30,11 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         PasswordPlain: $rootScope.user.PasswordPlain,
         ProcessDate: $rootScope.user.ProcessDate,
         LocationAddress: $rootScope.user.LocationAddress,
-        ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
     }
 
+    if (vm.profileData.ProfileBase64Pic != undefined) {
+        vm.profileData.ProfileBase64Pic = $rootScope.user.ProfileBase64Pic;
+    }
 
     if ($rootScope.updateProfile) {
         vm.profileData.ProfilePicPath = $rootScope.Pic
