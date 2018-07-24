@@ -27,10 +27,13 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
             Auth.logout();
             var AuthenticateSituation = false;
             console.log($rootScope.user.Email);
-            $window.location.href = "http://localhost:3001/avukat-giris-yap"
+            //   $window.location.href = "http://localhost:3001/avukat-giris-yap"
+
+            $window.location.href = " https://vitrin-avucat-com.herokuapp.com/?Email=" + vm.loginData.Email
+
             Auth.UpdateAuthenticate($rootScope.user.Email, AuthenticateSituation, function (response) {
                 if (response.data.success) {
-                    $window.location.href = "http://localhost:3001/avukat-giris-yap"
+                    $window.location.href = "https://vitrin-avucat-com.herokuapp.com/avukat-giris-yap"
                 }
             });
         } else {
