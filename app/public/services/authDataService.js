@@ -72,8 +72,8 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
 
         //  AuthToken.setToken();
         //  AuthUser.setUser();
-        AuthToken.setCookieToken();
-        AuthUser.setCookieUser();
+        AuthToken.setToken();
+        AuthUser.setUser();
 
 
 
@@ -107,7 +107,7 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
         }
     }
     authService.getCookieUser = function () {
-        if (AuthToken.getCookieToken()) {
+        if (AuthToken.getToken()) {
             return $http.get('/api/me');
         } else {
             return $q.reject({
@@ -162,7 +162,6 @@ authDataService.service('AuthUser', function ($window, $cookieStore, $rootScope)
 
         console.log("before cookie user", user);
 
-
         if (user !== null || user !== undefined) {
             var araform = user;
             $cookieStore.put('user', araform);
@@ -200,7 +199,7 @@ authDataService.service('AuthInterceptor', function ($q, $location, AuthToken) {
     var interceptorFactory = {};
     interceptorFactory.request = function (config) {
         // var token = AuthToken.getToken();
-        var token = AuthToken.getCookieToken();
+        var token = AuthToken.getToken();
 
         if (token) {
             config.headers['x-access-token'] = token;

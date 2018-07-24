@@ -7,7 +7,7 @@ SocialCtrl.controller('SocialController', function ($timeout, $scope, $rootScope
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
     var back = success;
-    $scope.user = AuthUser.getCookieUser();
+    $scope.user = AuthUser.getUser();
     vm.action = "Değişiklikleri Kaydet"
     console.log('Social Controller');
 
