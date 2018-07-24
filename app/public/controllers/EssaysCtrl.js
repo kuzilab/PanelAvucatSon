@@ -121,12 +121,11 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
         vm.essayData.EssayPicName = item.EssayPicName;
         $scope.selectedPicName = vm.essayData.EssayPicName;
         $('#formEditor').summernote('code', item.EssayContent);
-
     }
     vm.CancelAction = function () {
         vm.essayData = {
             _id: null,
-            UserId: user._id,
+            UserId: $rootScope.user._id,
             EssayName: null,
             EssayContent: null,
             EssaySubject: null,

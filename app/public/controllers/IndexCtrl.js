@@ -20,7 +20,7 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
 
     console.log($window.localStorage.getItem('checked'));
 
-    if ($window.localStorage.getItem("checked") == undefined || $window.localStorage.getItem('checked') == null) {
+    if ($window.localStorage.getItem("checked") == "unckecked") {
         Auth.CheckAuthenticate(Email, function (response) {
             if (response.data.success) {
                 var Email = response.data.authenticate.Email;
@@ -62,7 +62,7 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
         console.log($rootScope.selectedMenu);
 
         if (menu.name == "Güvenli Çıkış") {
-            $window.localStorage.setItem('checked', undefined);
+            $window.localStorage.setItem('checked', 'unckecked');
             Auth.logout();
             var AuthenticateSituation = false;
             //   $window.location.href = "http://localhost:3001/avukat-giris-yap"
