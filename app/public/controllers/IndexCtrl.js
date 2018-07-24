@@ -6,13 +6,20 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
     var vm = this;
     console.log('Index Controller')
 
-    $rootScope.user = AuthUser.getCookieUser();
+
+
+    if ($rootScope.user != undefined) {
+        $rootScope.user = AuthUser.getCookieUser();
+        vm.header.profile = $rootScope.user.ProfilePicPath;
+        vm.header.username = $rootScope.user.NameSurname
+    } else {
+
+    }
 
     vm.header = {};
     vm.header.brand = "Avucat";
     vm.header.title = "Avucat Yönetim Paneli";
-    vm.header.profile = $rootScope.user.ProfilePicPath;
-    vm.header.username = $rootScope.user.NameSurname
+
     vm.loggedIn = true;
 
     vm.ChangeClass = function (menu) {
