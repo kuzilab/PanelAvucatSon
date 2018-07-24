@@ -9,11 +9,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
 
-
-    if ($rootScope.updateProfile == false) {
-        $rootScope.user = AuthUser.getCookieUser();
-    }
-
+    $rootScope.user = AuthUser.getCookieUser();
 
     vm.RePassword = $rootScope.user.PasswordPlain;
     vm.profileData = {
@@ -33,7 +29,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     }
 
     if (vm.profileData.ProfileBase64Pic != undefined) {
-        vm.profileData.ProfileBase64Pic = $rootScope.user.ProfileBase64Pic;
+        vm.profileData.ProfileBase64Pic = $rootScope.user.ProfileBase64Pic
     }
 
     if ($rootScope.updateProfile) {

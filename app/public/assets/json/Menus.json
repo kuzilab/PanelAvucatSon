@@ -1,10 +1,16 @@
 [
 
     {
-        "name": "Profil",
-        "icon": "icon-user icons",
+        "name": "Tanıtım Sayfası",
+        "icon": "icon-calendar icons",
         "href": "/",
         "class": "nav-link text-nowrap d-flex active"
+    },
+    {
+        "name": "Profil",
+        "icon": "icon-user icons",
+        "href": "/profile",
+        "class": "nav-link text-nowrap d-flex"
     },
 
     {

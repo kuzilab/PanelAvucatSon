@@ -6,48 +6,7 @@ var app = angular.module('app', ['ngCookies', 'ngRoute', 'ngMessages', 'ProfileC
 // Environments ---------------------------------
 app.run(function ($rootScope, $location, Auth, $cookieStore) {
 
-    var item = $location.search();
-    var Email = item.Email;
 
-    $rootScope.updatedExtend = false;
-    $rootScope.updatedProfile = false;
-    console.log(Email);
-
-    if ($cookieStore.get("run") == undefined) {
-
-        Auth.CheckAuthenticate(Email, function (response) {
-            if (response.data.success) {
-                var Email = response.data.authenticate.Email;
-                var PasswordPlain = response.data.authenticate.PasswordPlain;
-
-                Auth.login(Email, PasswordPlain, function (response) {
-                    if (response.data.success) {
-
-                        // SetCookieToken and SetCookieUser();
-
-                        $cookieStore.put('run', false);
-
-                    } else {
-                        vm.message = response.data.message;
-                        vm.situation = response.data.situation;
-                        if (vm.situation === "no_user") {
-
-                            console.log(vm.message)
-
-                        } else if (vm.situation === "invalid_password") {
-
-                            console.log(vm.message)
-
-                        } else if (vm.situation === "valid_user") {
-
-                            console.log(vm.message)
-                        }
-                    }
-                });
-            }
-        });
-
-    }
 
 
     // This is For Initializer()
@@ -72,12 +31,12 @@ app.config(function ($httpProvider, $routeProvider, $locationProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
 
     $routeProvider
-        .when('/', {
+        .when('/profile', {
             templateUrl: '../views/profile.html',
             controller: 'ProfileController',
             controllerAs: 'profile'
         })
-        .when('/test', {
+        .when('/', {
             templateUrl: '../views/login.html',
             controller: 'LoginController',
             controllerAs: 'login'

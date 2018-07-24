@@ -68,11 +68,10 @@
     <script type="text/javascript" src="../assets/js/theme.js" charset="UTF-8"></script>
     <script type="text/javascript" src="../assets/js/toastr.min.js"></script>
 
-
-
 </head>
 
 <body>
+
     <header data-ng-controller="IndexController as index" ng-show="index.loggedIn">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top poppins">
             <div class="container-fluid">
@@ -90,7 +89,7 @@
                 <div>
                     <div class="d-block">
                         <a class="btn text-white" href="/">
-                            <img class="user-picture border border-white shadow rounded-circle" src="{{index.header.profile}}" width="25" height="25"
+                            <img class="user-picture border border-white shadow rounded-circle" ng-src="{{index.header.profile}}" width="25" height="25"
                             />
                             <span class="ml-1 d-md-inline-block d-none">{{index.header.username}}</span>
                         </a>
