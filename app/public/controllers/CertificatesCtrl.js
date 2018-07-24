@@ -12,10 +12,10 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
     var warn = "#eac675";
     console.log('Certificates Controller');
 
-    var user = $rootScope.user;
+    $rootScope.user = AuthUser.getUser();
 
-    var UserId = user._id;
-    var CertificateSituation = user.CertificateSituation;
+    var UserId = $rootScope.user._id;
+    var CertificateSituation = $rootScope.user.CertificateSituation;
 
     CrudData.getCertificates(UserId, function (response) {
         if (response.data.success) {

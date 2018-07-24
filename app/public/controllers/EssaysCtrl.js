@@ -18,9 +18,8 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
     var warn = "#eac675";
     $scope.essays;
 
-
-    var user = $rootScope.user;
-    var UserId = user._id;
+    $rootScope.user = AuthUser.getUser();
+    var UserId = $rootScope.user._id;
     vm.EssayPicChanged = false;
     vm.Action = "Değişiklikleri Kaydet";
 

@@ -7,9 +7,9 @@ CommentsCtrl.controller('CommentsController', function ($scope, $rootScope, $loc
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
 
-    var user = $rootScope.user;
+    $rootScope.user = AuthUser.getUser();
 
-    var UserId = user._id;
+    var UserId = $rootScope.user._id;
 
     CrudData.getComments(UserId, function (response) {
         if (response.data.success) {
