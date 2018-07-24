@@ -53,7 +53,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
 
     vm.essayData = {
         _id: null,
-        UserId: user._id,
+        UserId: $rootScope.user._id,
         EssayName: null,
         EssayContent: null,
         EssaySubject: null,

@@ -127,7 +127,7 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
 
             CrudData.saveCertificate(vm.certificateData, function (response) {
                 if (response.data.success) {
-                    var UserId = user._id;
+                    var UserId = $rootScope.user._id;
                     CrudData.getCertificates(UserId, function (response) {
                         if (response.data.success) {
                             $rootScope.certificates = response.data.certificates;
