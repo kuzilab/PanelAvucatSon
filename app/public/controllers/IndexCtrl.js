@@ -15,7 +15,6 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
     vm.header.username = $rootScope.user.NameSurname
     vm.loggedIn = true;
 
-
     vm.ChangeClass = function (menu) {
 
         menu.class = "nav-link text-nowrap d-flex active";
