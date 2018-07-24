@@ -58,10 +58,10 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
                     callback(response);
                 } else {
 
-                    AuthToken.setCookieToken(response.data.token);
-                    AuthUser.setCookieUser(response.data.user);
-                    //  AuthToken.setToken(response.data.token);
-                    //  AuthUser.setUser(response.data.user)
+                    //  AuthToken.setCookieToken(response.data.token);
+                    //   AuthUser.setCookieUser(response.data.user);
+                    AuthToken.setToken(response.data.token);
+                    AuthUser.setUser(response.data.user)
                     callback(response);
                 }
             }

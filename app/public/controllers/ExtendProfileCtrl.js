@@ -7,7 +7,7 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
     // $scope.user = AuthUser.getCookieUser();
     console.log("updated", $rootScope.updated);
     if ($rootScope.updatedExtend == false) {
-        $rootScope.user = AuthUser.getCookieUser();
+        $rootScope.user = AuthUser.getUser();
     }
 
     $scope.visible = true;

@@ -47,7 +47,7 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
             }
         });
     } else {
-        var user = AuthUser.getCookieUser();
+        var user = AuthUser.getUser();
         vm.header.username = user.NameSurname
         vm.header.profile = user.ProfilePicPath;
     }

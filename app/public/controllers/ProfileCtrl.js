@@ -9,7 +9,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
 
-    $rootScope.user = AuthUser.getCookieUser();
+    $rootScope.user = AuthUser.getUser();
 
     vm.RePassword = $rootScope.user.PasswordPlain;
     vm.profileData = {
