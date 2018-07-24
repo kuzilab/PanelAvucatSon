@@ -162,9 +162,12 @@ authDataService.service('AuthUser', function ($window, $cookieStore, $rootScope)
 
         console.log("before cookie user", user);
 
+
         if (user !== null || user !== undefined) {
             var araform = user;
             $cookieStore.put('user', araform);
+
+            console.log("after set cookie user", $cookieStore.get('user'));
 
         } else {
             $cookieStore.remove('user');
