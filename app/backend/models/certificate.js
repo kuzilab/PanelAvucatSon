@@ -22,6 +22,9 @@ var CertificateSchema = new Schema({
     },
     CertificateSituation: {
         type: Boolean
+    },
+    ProfileBase64Pic: {
+        type: String
     }
 });
 

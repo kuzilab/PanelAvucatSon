@@ -1,10 +1,14 @@
 var ExtendProfileCtrl = angular.module('ExtendProfileCtrl', []);
 
-ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $scope, $rootScope, $location, $sce, Auth, AuthUser, CrudData, MockData) {
+ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $scope, $rootScope, $location, $sce, Auth, AuthUser, CrudData, MockData, AuthToken) {
 
     var vm = this;
 
-    $scope.user = AuthUser.getCookieUser();
+    // $scope.user = AuthUser.getCookieUser();
+    console.log("updated", $rootScope.updated);
+    if ($rootScope.updatedExtend == false) {
+        $rootScope.user = AuthUser.getCookieUser();
+    }
 
     $scope.visible = true;
     $scope.message = "";
@@ -15,34 +19,33 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
     console.log('ExtendProfile Controller');
 
     vm.extendData = {
-        UserId: $scope.user._id,
-        BureauName: $scope.user.BureauName,
-        BureauWebName: $scope.user.BureauWebName,
-        Address: $scope.user.Address,
-        ExperienceYear: $scope.user.ExperienceYear,
-        UserWebName: $scope.user.UserWebName,
-        Biography: $scope.user.Biography,
-        TBBNo: $scope.user.TBBNo,
-        ADLNo: $scope.user.ADLNo,
-        BureauNo: $scope.user.BureauNo,
-        BureauCityId: $scope.user.BureauCityId,
-        LicenceSchoolName: $scope.user.LicenceSchoolName,
-        LicenceSchoolId: $scope.user.LicenceSchoolId,
-        LicenceSchoolDate: $scope.user.LicenceSchoolDate,
-        HighLicenceSchoolName: $scope.user.HighLicenceSchoolName,
-        HighLicenceSchoolId: $scope.user.HighLicenceSchoolId,
-        HighLicenceSchoolDate: $scope.user.HighLicenceSchoolDate,
-        PostLicenceSchoolName: $scope.user.PostLicenceSchoolName,
-        PostLicenceSchoolId: $scope.user.PostLicenceSchoolId,
-        PostLicenceSchoolDate: $scope.user.PostLicenceSchoolDate,
-        UserKeywords: $scope.user.UserKeywords,
-        ProcessDate: $scope.user.ProcessDate,
-        IsBureauWebName: $scope.user.IsBureauWebName,
-        IsUserWebName: $scope.user.IsUserWebName,
-        IsLicenceSchoolName: $scope.user.IsLicenceSchoolName,
-        IsHighLicenceSchoolName: $scope.user.IsHighLicenceSchoolName,
-        IsPostLicenceSchoolName: $scope.user.IsPostLicenceSchoolName,
-        test: null
+        UserId: $rootScope.user._id,
+        BureauName: $rootScope.user.BureauName,
+        BureauWebName: $rootScope.user.BureauWebName,
+        Address: $rootScope.user.Address,
+        ExperienceYear: $rootScope.user.ExperienceYear,
+        UserWebName: $rootScope.user.UserWebName,
+        Biography: $rootScope.user.Biography,
+        TBBNo: $rootScope.user.TBBNo,
+        ADLNo: $rootScope.user.ADLNo,
+        BureauNo: $rootScope.user.BureauNo,
+        BureauCityId: $rootScope.user.BureauCityId,
+        LicenceSchoolName: $rootScope.user.LicenceSchoolName,
+        LicenceSchoolId: $rootScope.user.LicenceSchoolId,
+        LicenceSchoolDate: $rootScope.user.LicenceSchoolDate,
+        HighLicenceSchoolName: $rootScope.user.HighLicenceSchoolName,
+        HighLicenceSchoolId: $rootScope.user.HighLicenceSchoolId,
+        HighLicenceSchoolDate: $rootScope.user.HighLicenceSchoolDate,
+        PostLicenceSchoolName: $rootScope.user.PostLicenceSchoolName,
+        PostLicenceSchoolId: $rootScope.user.PostLicenceSchoolId,
+        PostLicenceSchoolDate: $rootScope.user.PostLicenceSchoolDate,
+        UserKeywords: $rootScope.user.UserKeywords,
+        ProcessDate: $rootScope.user.ProcessDate,
+        IsBureauWebName: $rootScope.user.IsBureauWebName,
+        IsUserWebName: $rootScope.user.IsUserWebName,
+        IsLicenceSchoolName: $rootScope.user.IsLicenceSchoolName,
+        IsHighLicenceSchoolName: $rootScope.user.IsHighLicenceSchoolName,
+        IsPostLicenceSchoolName: $rootScope.user.IsPostLicenceSchoolName,
 
     }
     globe.SetValueById("formUserKeywords", vm.extendData.UserKeywords);
@@ -78,10 +81,6 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
     }
 
     vm.updateExtendProfile = function () {
-
-
-
-
 
         vm.extendData.LicenceSchoolDate = globe.GetValueById("formLicenceSchoolYear");
         vm.extendData.HighLicenceSchoolDate = globe.GetValueById("formHighLicenceSchoolYear");
@@ -140,20 +139,56 @@ ExtendProfileCtrl.controller('ExtendProfileController', function ($timeout, $sco
 
             CrudData.updateExtendProfile(vm.extendData, function (response) {
                 console.log(response.data.success);
+
+
+
                 if (response.data.success === true) {
 
                     Auth.login($scope.user.Email, $scope.user.PasswordPlain, function (response) {
-
                         if (response.data.success) {
 
-                            $scope.user = response.data.user;
+                            $rootScope.updatedExtend = true;
+                            console.log("update extend", response.data.user);
+                            $rootScope.user = response.data.user;
+                            vm.extendData = {
+                                UserId: $rootScope.user._id,
+                                BureauName: $rootScope.user.BureauName,
+                                BureauWebName: $rootScope.user.BureauWebName,
+                                Address: $rootScope.user.Address,
+                                ExperienceYear: $rootScope.user.ExperienceYear,
+                                UserWebName: $rootScope.user.UserWebName,
+                                Biography: $rootScope.user.Biography,
+                                TBBNo: $rootScope.user.TBBNo,
+                                ADLNo: $rootScope.user.ADLNo,
+                                BureauNo: $rootScope.user.BureauNo,
+                                BureauCityId: $rootScope.user.BureauCityId,
+                                LicenceSchoolName: $rootScope.user.LicenceSchoolName,
+                                LicenceSchoolId: $rootScope.user.LicenceSchoolId,
+                                LicenceSchoolDate: $rootScope.user.LicenceSchoolDate,
+                                HighLicenceSchoolName: $rootScope.user.HighLicenceSchoolName,
+                                HighLicenceSchoolId: $rootScope.user.HighLicenceSchoolId,
+                                HighLicenceSchoolDate: $rootScope.user.HighLicenceSchoolDate,
+                                PostLicenceSchoolName: $rootScope.user.PostLicenceSchoolName,
+                                PostLicenceSchoolId: $rootScope.user.PostLicenceSchoolId,
+                                PostLicenceSchoolDate: $rootScope.user.PostLicenceSchoolDate,
+                                UserKeywords: $rootScope.user.UserKeywords,
+                                ProcessDate: $rootScope.user.ProcessDate,
+                                IsBureauWebName: $rootScope.user.IsBureauWebName,
+                                IsUserWebName: $rootScope.user.IsUserWebName,
+                                IsLicenceSchoolName: $rootScope.user.IsLicenceSchoolName,
+                                IsHighLicenceSchoolName: $rootScope.user.IsHighLicenceSchoolName,
+                                IsPostLicenceSchoolName: $rootScope.user.IsPostLicenceSchoolName,
+                            }
+
                             $scope.message = "Detay Profiliniz Güncellendi :)"
                             $scope.back = success;
                             $scope.setStyle();
                             $scope.visible = false;
                             $timeout(function () {
                                 $scope.visible = true;
-                                //  location.reload();
+
+                                $scope.$apply(function () {});
+
                             }, 2000);
 
                         }

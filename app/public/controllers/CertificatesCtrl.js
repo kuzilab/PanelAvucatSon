@@ -19,13 +19,11 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
 
     CrudData.getCertificates(UserId, function (response) {
         if (response.data.success) {
-            $scope.certificates = response.data.certificates;
+            $rootScope.certificates = response.data.certificates;
 
             var sayac = 0;
             $scope.content = "";
-
-            angular.forEach($scope.certificates, function (item) {
-
+            angular.forEach($rootScope.certificates, function (item) {
                 var id = "'" + item._id + "'";
                 sayac += 1;
                 var path = "../assets/img/docs/" + item.ThumbnailType;
@@ -45,10 +43,6 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
             // add to DOM 
             $("#table").append(tblElem);
             $("#mainTable").DataTable();
-
-
-
-
         }
     });
 
@@ -59,7 +53,8 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
         FileType: null,
         SavedDate: null,
         CertificateSituation: null,
-        ThumbnailType: null
+        ThumbnailType: null,
+        ProfileBase64Pic: null
     }
 
     $scope.certificateSelected = function (element) {
@@ -68,6 +63,19 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
         $scope.certificateType = element.files[0].type;
         $scope.certificateFile = element.files[0];
         console.log(element.files[0]);
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $scope.$apply(function () {
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    vm.certificateData.ProfileBase64Pic = e.target.result;
+                }
+            });
+        };
+        reader.readAsDataURL(element.files[0]);
+
     }
 
     vm.deleteCertificate = function (id) {
@@ -87,14 +95,14 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
                 if (response.data.success) {
                     CrudData.getCertificates(UserId, function (response) {
                         if (response.data.success) {
-                            $scope.certificates = response.data.certificates;
+                            $rootScope.certificates = response.data.certificates;
                             $scope.message = "Silme Başarılı :)";
                             $scope.back = success;
-                            location.reload();
                             $scope.setStyle();
                             $scope.visible = false;
                             $timeout(function () {
                                 $scope.visible = true;
+                                //   location.reload();
                             }, 2500);
                         }
                     });
@@ -108,6 +116,7 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
     vm.SaveCertificate = function () {
         var result = globe.getExtension($scope.certificateType)
         if (result == "success") {
+
             UploadSrv.uploadCertificateFile($scope.certificateFile);
             vm.certificateData.SavedDate = globe.getDate();
             vm.certificateData.CertificateSituation = true
@@ -121,17 +130,48 @@ CertificatesCtrl.controller('CertificatesController', function ($timeout, $scope
                     var UserId = user._id;
                     CrudData.getCertificates(UserId, function (response) {
                         if (response.data.success) {
-                            $scope.certificates = response.data.certificates;
+                            $rootScope.certificates = response.data.certificates;
+
+                            var sayac = 0;
+                            $scope.content = "";
+                            angular.forEach($rootScope.certificates, function (item) {
+                                var id = "'" + item._id + "'";
+                                sayac += 1;
+                                var path = "../assets/img/docs/" + item.ThumbnailType;
+                                $scope.content += '<tr><td>' + sayac + '</td>' +
+                                    '<td><div class="doc-thumbnail img-thumbnail mx-auto"><img class="img-fluid mx-auto" src=' + path + ' data-toggle="tooltip" data-placement="top"title="Microsoft Word" /></div></td>' +
+                                    '<td>' + item.CertificateFileName + '</td>' +
+                                    '<td>' + item.FileType + '</td>' +
+                                    '<td>' + item.SavedDate + '</td>' +
+                                    '<td><button type="button" class="btn btn-danger" ng-click="certificate.deleteCertificate(' + id + ')">Sil</button></td></tr>'
+                            });
+
+                            console.log($scope.content);
+                            var tblElem = angular.element($scope.content);
+                            var compileFN = $compile(tblElem);
+                            compileFN($scope);
+
+                            // add to DOM 
+                            $("#table").append(tblElem);
+                            $("#mainTable").DataTable();
+
+
                             $scope.message = "Dosya Eklendi :)";
                             $scope.back = success;
-                            location.reload();
                             $scope.setStyle();
                             $scope.visible = false;
+                            $timeout(function () {
+                                $scope.visible = true;
+                                //   location.reload()
+                            }, 2500);
                         } else {
                             $scope.message = "Dosya Yüklerken Hata Oluştu :(";
                             $scope.back = error;
                             $scope.setStyle();
                             $scope.visible = false;
+                            $timeout(function () {
+                                $scope.visible = true;
+                            }, 2500);
                         }
                     });
                 }

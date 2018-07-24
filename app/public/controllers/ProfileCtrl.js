@@ -9,26 +9,37 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
     var success = "rgb(114, 162, 114)";
     var error = "rgb(208, 85, 84)";
 
-    $scope.user = AuthUser.getCookieUser();
-    console.log(AuthUser.getCookieUser());
 
-    vm.RePassword = $scope.user.PasswordPlain;
-    vm.profileData = {
-        _id: $scope.user._id,
-        NameSurname: $scope.user.NameSurname,
-        ProfilePicPath: $scope.user.ProfilePicPath,
-        Phone: $scope.user.Phone,
-        Email: $scope.user.Email,
-        ExpertiseFields: $scope.user.ExpertiseFields,
-        LatLng: $scope.user.LatLng,
-        Lat: $scope.user.Lat,
-        Lng: $scope.user.Lng,
-        Password: $scope.user.Password,
-        PasswordPlain: $scope.user.PasswordPlain,
-        ProcessDate: $scope.user.ProcessDate,
-        LocationAddress: $scope.user.LocationAddress,
-        ProfileBase64Pic: $scope.user.ProfileBase64Pic
+    if ($rootScope.updateProfile == false) {
+        $rootScope.user = AuthUser.getCookieUser();
     }
+
+
+    vm.RePassword = $rootScope.user.PasswordPlain;
+    vm.profileData = {
+        _id: $rootScope.user._id,
+        NameSurname: $rootScope.user.NameSurname,
+        ProfilePicPath: $rootScope.user.ProfilePicPath,
+        Phone: $rootScope.user.Phone,
+        Email: $rootScope.user.Email,
+        ExpertiseFields: $rootScope.user.ExpertiseFields,
+        LatLng: $rootScope.user.LatLng,
+        Lat: $rootScope.user.Lat,
+        Lng: $rootScope.user.Lng,
+        Password: $rootScope.user.Password,
+        PasswordPlain: $rootScope.user.PasswordPlain,
+        ProcessDate: $rootScope.user.ProcessDate,
+        LocationAddress: $rootScope.user.LocationAddress,
+        ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
+    }
+
+
+    if ($rootScope.updateProfile) {
+        vm.profileData.ProfilePicPath = $rootScope.Pic
+
+        console.log($rootScope.Pic);
+    }
+
 
     console.log(vm.profileData);
 
@@ -36,6 +47,9 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
     getExpertiseFields = function () {
         vm.profileData.ExpertiseFields = globe.GetValueById('formUzmanlikAlanlari');
+
+        console.log(vm.profileData.ExpertiseFields);
+
         if (vm.profileData.ExpertiseFields.length != 0) {} else {
             vm.profileData.ExpertiseFields = null;
         }
@@ -51,11 +65,6 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
         console.log(vm.profileData.ExpertiseFields);
 
     }
-
-
-
-
-
 
     // --------------------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------
@@ -90,6 +99,9 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                             if ($scope.changedProfile && $scope.PicSize) {
                                 vm.profileData.ProfilePicPath = e.target.result // Base64 
                                 vm.profileData.ProfileBase64Pic = e.target.result;
+                                $rootScope.Pic = e.target.result;
+
+
                                 $scope.$apply(function () {});
                             }
                         }
@@ -124,8 +136,7 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
 
     vm.updateProfile = function () {
 
-        console.log(vm.profileData);
-
+        console.log("update edilecek profile", vm.profileData);
         // Form Uzmanlık Alanı Problemi ----------------------
         var arr = globe.GetValueById('formUzmanlikAlanlari');
         if (arr.length != 0) {
@@ -145,15 +156,37 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                     UploadSrv.uploadProfilePic($scope.profilePicFile);
                     vm.profileData.Password = vm.profileData.PasswordPlain;
                     vm.profileData.ProcessDate = globe.getDate();
+                    console.log($scope.profilePicName);
                     vm.profileData.ProfilePicPath = '../assets/uploadProfileFiles/' + $scope.profilePicName;
-
 
                     CrudData.updateProfile(vm.profileData, function (response) {
                         if (response.data.success == true) {
                             Auth.login(vm.profileData.Email, vm.profileData.Password, function (response) {
                                 if (response.data.success) {
                                     $rootScope.user = response.data.user;
-                                    $scope.user = $rootScope.user;
+                                    $rootScope.updateProfile = true;
+
+                                    vm.profileData = {
+                                        _id: $rootScope.user._id,
+                                        NameSurname: $rootScope.user.NameSurname,
+                                        ProfilePicPath: $rootScope.user.ProfilePicPath,
+                                        Phone: $rootScope.user.Phone,
+                                        Email: $rootScope.user.Email,
+                                        ExpertiseFields: $rootScope.user.ExpertiseFields,
+                                        LatLng: $rootScope.user.LatLng,
+                                        Lat: $rootScope.user.Lat,
+                                        Lng: $rootScope.user.Lng,
+                                        Password: $rootScope.user.Password,
+                                        PasswordPlain: $rootScope.user.PasswordPlain,
+                                        ProcessDate: $rootScope.user.ProcessDate,
+                                        LocationAddress: $rootScope.user.LocationAddress,
+                                        ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
+                                    }
+
+
+
+
+
                                 }
                             });
                             $scope.message = "Profiliniz Güncellendi :)";
@@ -181,7 +214,25 @@ ProfileCtrl.controller('ProfileController', function ($cookieStore, $window, $sc
                             Auth.login(vm.profileData.Email, vm.profileData.Password, function (response) {
                                 if (response.data.success) {
                                     $rootScope.user = response.data.user;
-                                    $scope.user = $rootScope.user;
+
+
+                                    vm.profileData = {
+                                        _id: $rootScope.user._id,
+                                        NameSurname: $rootScope.user.NameSurname,
+                                        ProfilePicPath: $rootScope.user.ProfilePicPath,
+                                        Phone: $rootScope.user.Phone,
+                                        Email: $rootScope.user.Email,
+                                        ExpertiseFields: $rootScope.user.ExpertiseFields,
+                                        LatLng: $rootScope.user.LatLng,
+                                        Lat: $rootScope.user.Lat,
+                                        Lng: $rootScope.user.Lng,
+                                        Password: $rootScope.user.Password,
+                                        PasswordPlain: $rootScope.user.PasswordPlain,
+                                        ProcessDate: $rootScope.user.ProcessDate,
+                                        LocationAddress: $rootScope.user.LocationAddress,
+                                        ProfileBase64Pic: $rootScope.user.ProfileBase64Pic
+                                    }
+
                                 }
                             });
                             $scope.message = "Profiliniz Güncellendi :)"

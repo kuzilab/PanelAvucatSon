@@ -197,13 +197,14 @@ router.post(auth.CheckAuthenticate, function (req, res) {
 router.post(auth.UpdateAuthenticate, function (req, res) {
 
     var Email = req.body.Email;
-    var UpdateAuthenticate = req.body.AuthenticateSituation;
+    var AuthenticateSituation = req.body.AuthenticateSituation;
+
     var condition = {
         "Email": Email
     };
     var update = {
         $set: {
-            "IsAuthenticated": AuthenticateSituation,
+            "IsAuthneticated": AuthenticateSituation,
             "IsUser": true
         }
     }
@@ -236,7 +237,7 @@ router.post(auth.login, function (req, res) {
     var Password = req.body.Password;
     User.findOne({
         Email: Email
-    }).select('_id IsBureauWebName BureauCityId  IsUserWebName IsHighLicenceSchoolName IsPostLicenceSchoolName IsLicenceSchoolName NameSurname ProfilePicPath Phone Email ExpertiseFields LatLng Lat Lng Password PasswordPlain BureauName BureauWebName Address ExperienceYear UserWebName Biography TBBNo ADLNo BureauNo BureauCity LicenceSchoolName LicenceSchoolId LicenceSchoolDate HighLicenceSchoolName HighLicenceSchoolId HighLicenceSchoolDate PostLicenceSchoolName PostLicenceSchoolId PostLicenceSchoolDate UserKeywords ProcessDate UserSituation UserAppName LocationAddress').exec(function (err, user) {
+    }).select('_id IsBureauWebName BureauCityId  IsUserWebName IsHighLicenceSchoolName IsPostLicenceSchoolName IsLicenceSchoolName NameSurname ProfilePicPath Phone Email ExpertiseFields LatLng Lat Lng Password PasswordPlain BureauName BureauWebName Address ExperienceYear UserWebName Biography TBBNo ADLNo BureauNo BureauCity LicenceSchoolName LicenceSchoolId LicenceSchoolDate HighLicenceSchoolName HighLicenceSchoolId HighLicenceSchoolDate PostLicenceSchoolName PostLicenceSchoolId PostLicenceSchoolDate UserKeywords ProcessDate UserSituation UserAppName LocationAddress ProfileBase64Pic').exec(function (err, user) {
         // check User First Step
         if (user === null) {
             res.send({
@@ -448,7 +449,8 @@ router.post(crud.saveCertificate, function (req, res) {
         FileType: item.FileType,
         SavedDate: item.SavedDate,
         CertificateSituation: item.CertificateSituation,
-        ThumbnailType: item.ThumbnailType
+        ThumbnailType: item.ThumbnailType,
+        ProfileBase64Pic: item.ProfileBase64Pic
     });
 
     certificate.save(function (err) {

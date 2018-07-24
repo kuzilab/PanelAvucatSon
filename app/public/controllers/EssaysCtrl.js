@@ -27,7 +27,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
     CrudData.getEssays(UserId, function (response) {
         if (response.data.success) {
 
-            $scope.essays = response.data.essays;
+            $rootScope.essays = response.data.essays;
 
             var sayac = 0;
             $scope.content = "";
@@ -78,7 +78,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
             CrudData.deleteEssay(item, function () {
                 CrudData.getEssays(UserId, function (response) {
                     if (response.data.success) {
-                        $scope.essays = response.data.essays;
+                        $rootScope.essays = response.data.essays;
 
                         location.reload();
                         $scope.message = "Silme Başarılı :)";
@@ -94,6 +94,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
                     }
                     $timeout(function () {
                         $scope.visible = true;
+                        location.reload();
                     }, 2500);
                 });
             });
@@ -216,6 +217,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
 
                         $timeout(function () {
                             $scope.visible = true;
+                            location.reload();
                         }, 2500);
                     });
                 }
@@ -240,6 +242,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
                         }
                         $timeout(function () {
                             $scope.visible = true;
+                            location.reload();
                         }, 2500);
                     });
 
@@ -271,7 +274,7 @@ EssaysCtrl.controller('EssaysController', function ($timeout, $scope, $rootScope
 
             CrudData.getEssays(UserId, function (response) {
                 if (response.data.success) {
-                    $scope.essays = response.data.essays;
+                    $rootScope.essays = response.data.essays;
                 }
             });
         }

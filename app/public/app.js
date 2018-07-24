@@ -9,13 +9,9 @@ app.run(function ($rootScope, $location, Auth, $cookieStore) {
     var item = $location.search();
     var Email = item.Email;
 
-    if (Email != undefined && Email != null) {
-        $cookieStore.put('Email', Email);
-    } else {
-        Email = $cookieStore.get('Email');
-    }
-    console.log($cookieStore.get("run"));
-
+    $rootScope.updatedExtend = false;
+    $rootScope.updatedProfile = false;
+    console.log(Email);
 
     if ($cookieStore.get("run") == undefined) {
 
@@ -28,6 +24,8 @@ app.run(function ($rootScope, $location, Auth, $cookieStore) {
                     if (response.data.success) {
 
                         // SetCookieToken and SetCookieUser();
+
+                        $cookieStore.put('run', false);
 
                     } else {
                         vm.message = response.data.message;
@@ -49,8 +47,6 @@ app.run(function ($rootScope, $location, Auth, $cookieStore) {
             }
         });
 
-    } else {
-        $cookieStore.put("run", false);
     }
 
 

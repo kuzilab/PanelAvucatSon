@@ -37,6 +37,7 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
             if (response.data.success) {
 
                 AuthUser.setCookieUser();
+                // AuthUser.setUser();
                 callback(response)
             } else {
                 if (response.data.situation === "create_issue") {
@@ -57,12 +58,10 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
                     callback(response);
                 } else {
 
-                    console.log("login cagrıldıktan sonra user", response.data.user);
-
                     AuthToken.setCookieToken(response.data.token);
                     AuthUser.setCookieUser(response.data.user);
-                    // AuthToken.setToken(response.data.token);
-                    // AuthUser.setUser(response.data.user)
+                    //  AuthToken.setToken(response.data.token);
+                    //  AuthUser.setUser(response.data.user)
                     callback(response);
                 }
             }
@@ -70,7 +69,14 @@ authDataService.service('Auth', function ($http, $q, AuthToken, AuthUser) {
     }
 
     authService.logout = function () {
-        AuthToken.setToken();
+
+        //  AuthToken.setToken();
+        //  AuthUser.setUser();
+        AuthToken.setCookieToken();
+        AuthUser.setCookieUser();
+
+
+
     }
     authService.isLoggedIn = function () {
         if (AuthToken.getToken()) {
@@ -148,24 +154,26 @@ authDataService.service('AuthToken', function ($window, $cookieStore) {
 // AUTHUSER --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------
 
-authDataService.service('AuthUser', function ($window, $cookieStore) {
+authDataService.service('AuthUser', function ($window, $cookieStore, $rootScope) {
 
     var authUserFactory = {};
 
     authUserFactory.setCookieUser = function (user) {
 
-        console.log("setCookieUser", user);
-
+        console.log("before cookie user", user);
 
         if (user !== null || user !== undefined) {
-            $cookieStore.remove('user');
-            $cookieStore.put('user', user);
+            var araform = user;
+            $cookieStore.put('user', araform);
+
         } else {
             $cookieStore.remove('user');
         }
     }
 
     authUserFactory.getCookieUser = function () {
+
+
         return $cookieStore.get('user');
     }
 
