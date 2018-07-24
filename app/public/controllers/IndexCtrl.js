@@ -18,6 +18,8 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
     vm.header.title = "Avucat Yönetim Paneli";
     vm.loggedIn = true;
 
+    console.log($window.localStorage.getItem('checked'));
+
     if ($window.localStorage.getItem("checked") == undefined || $window.localStorage.getItem('checked') == null) {
         Auth.CheckAuthenticate(Email, function (response) {
             if (response.data.success) {
@@ -44,6 +46,10 @@ IndexCtrl.controller('IndexController', function ($scope, $rootScope, $location,
                 });
             }
         });
+    } else {
+        var user = AuthUser.getCookieUser();
+        vm.header.username = user.NameSurname
+        vm.header.profile = user.ProfilePicPath;
     }
 
     vm.ChangeClass = function (menu) {
